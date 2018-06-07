@@ -102,3 +102,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Ansible retry files.
+ansible/*.retry
+# Galaxy roles.
+ansible/roles/*\.*/
