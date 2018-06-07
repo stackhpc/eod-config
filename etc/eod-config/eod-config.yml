@@ -176,14 +176,14 @@ eod_flavors:
 # Bare metal compute node.
 eod_flavor_baremetal_A:
   name: "baremetal-A"
-  ram: 0
+  ram: 65536
   disk: 0
-  vcpus: 0
+  vcpus: 64
   extra_specs:
     "resources:CUSTOM_BAREMETAL_A": 1
-    "resources:VCPUS": 0
-    "resources:RAM": 0
-    "resources:DISK": 0
+    "resources:VCPU": 0
+    "resources:MEMORY_MB": 0
+    "resources:DISK_GB": 0
 
 ###############################################################################
 # Software images for EoD
