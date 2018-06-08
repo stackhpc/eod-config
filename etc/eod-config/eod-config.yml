@@ -147,7 +147,8 @@ eod_network_ilab:
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
   provider_segmentation_id: 60
-  shared: True
+  shared: true
+  external: true
   # Subnet configuration.
   subnets:
     - "{{ eod_subnet_ilab }}"
