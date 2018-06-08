@@ -138,6 +138,7 @@ eod_demo_quotas:
 eod_networks:
   - "{{ eod_network_ilab }}"
   - "{{ eod_network_demo_vlan }}"
+  - "{{ eod_network_demo_vxlan }}"
 
 # EOD i-lab network name.
 eod_network_ilab_name: "ilab"
@@ -185,13 +186,35 @@ eod_subnet_demo_vlan:
   allocation_pool_start: "10.0.0.2"
   allocation_pool_end: "10.0.0.254"
 
+# EOD demo VXLAN network name.
+eod_network_demo_vxlan_name: "demo-vxlan"
+
+# EOD demo VXLAN network.
+eod_network_demo_vxlan:
+  name: "{{ eod_network_demo_vxlan_name }}"
+  project: "{{ eod_demo_project.name }}"
+  provider_network_type: "vxlan"
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_demo_vxlan }}"
+
+# EOD demo VXLAN subnet.
+eod_subnet_demo_vxlan:
+  name: "{{ eod_network_demo_vxlan_name }}"
+  project: "{{ eod_demo_project.name }}"
+  cidr: "10.1.0.0/24"
+  gateway_ip: "10.1.0.1"
+  allocation_pool_start: "10.1.0.2"
+  allocation_pool_end: "10.1.0.254"
+
 # List of routers in the eod demo project. Format is as required by the
 # stackhpc.os-networks role.
 eod_routers:
-  - name: "{{ eod_network_demo_vlan_name }}"
+  - name: "{{ eod_demo_project.name }}"
     project: "{{ eod_demo_project.name }}"
     interfaces:
       - "{{ eod_network_demo_vlan_name }}"
+      - "{{ eod_network_demo_vxlan_name }}"
     network: "{{ eod_network_ilab_name }}"
 
 # List of security groups in the eod demo project. Format is as required by the
