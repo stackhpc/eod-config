@@ -20,6 +20,10 @@ eod_networks: []
 # stackhpc.os-networks role.
 eod_routers: []
 
+# List of security groups in the eod demo project. Format is as required by the
+# stackhpc.os-networks role.
+eod_security_groups: []
+
 ###############################################################################
 # Configuration of nova flavors for EoD.
 

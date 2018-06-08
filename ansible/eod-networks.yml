@@ -10,3 +10,4 @@
       os_networks_auth: "{{ openstack_auth }}"
       os_networks: "{{ eod_networks }}"
       os_networks_routers: "{{ eod_routers }}"
+      os_networks_security_groups: "{{ eod_security_groups }}"
