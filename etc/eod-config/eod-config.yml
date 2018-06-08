@@ -299,5 +299,5 @@ eod_image_git_elements:
     local: "{{ eod_image_stackhpc_elements }}"
 
 # Path to include
-eod_image_elements: 
+eod_image_elements:
   - "{{ eod_image_stackhpc_elements }}/elements"
