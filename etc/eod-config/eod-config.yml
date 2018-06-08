@@ -223,6 +223,11 @@ eod_security_groups: []
 # stackhpc.os-flavors role.
 eod_flavors:
   - "{{ eod_flavor_baremetal_A }}"
+  - "{{ eod_flavor_m1_tiny }}"
+  - "{{ eod_flavor_m1_small }}"
+  - "{{ eod_flavor_m1_medium }}"
+  - "{{ eod_flavor_m1_large }}"
+  - "{{ eod_flavor_m1_xlarge }}"
 
 # Bare metal compute node.
 eod_flavor_baremetal_A:
@@ -235,6 +240,37 @@ eod_flavor_baremetal_A:
     "resources:VCPU": 0
     "resources:MEMORY_MB": 0
     "resources:DISK_GB": 0
+
+# Virtual machine flavors.
+eod_flavor_m1_tiny:
+  name: "m1.tiny"
+  ram: 512
+  disk: 1
+  vcpus: 1
+
+eod_flavor_m1_small:
+  name: "m1.small"
+  ram: 2048
+  disk: 20
+  vcpus: 1
+
+eod_flavor_m1_medium:
+  name: "m1.medium"
+  ram: 4096
+  disk: 40
+  vcpus: 2
+
+eod_flavor_m1_large:
+  name: "m1.large"
+  ram: 8192
+  disk: 40
+  vcpus: 4
+
+eod_flavor_m1_xlarge:
+  name: "m1.xlarge"
+  ram: 16384
+  disk: 100
+  vcpus: 8
 
 ###############################################################################
 # Software images for EoD
