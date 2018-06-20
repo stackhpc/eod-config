@@ -137,6 +137,8 @@ eod_demo_quotas:
 # stackhpc.os-networks role.
 eod_networks:
   - "{{ eod_network_ilab }}"
+  - "{{ eod_network_internal }}"
+  - "{{ eod_network_inspection }}"
   - "{{ eod_network_demo_vlan }}"
   - "{{ eod_network_demo_vxlan }}"
   - "{{ eod_network_demo_hs_vlan }}"
@@ -167,6 +169,54 @@ eod_subnet_ilab:
   allocation_pool_start: "10.60.2.0"
   allocation_pool_end: "10.60.5.255"
   # TODO: Add host route to storage subnet.
+
+# EOD internal network name.
+eod_network_internal_name: "internal"
+
+# EOD internal network.
+eod_network_internal:
+  name: "{{ eod_network_internal_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 65
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_internal }}"
+
+# EOD internal subnet.
+eod_subnet_internal:
+  name: "{{ eod_network_internal_name }}"
+  project: "admin"
+  cidr: "10.65.0.0/16"
+  enable_dhcp: false
+  allocation_pool_start: "10.65.0.2"
+  allocation_pool_end: "10.65.0.4"
+
+# EOD inspection network name.
+eod_network_inspection_name: "inspection-net"
+
+# EOD inspection network.
+eod_network_inspection:
+  name: "{{ eod_network_inspection_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 71
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_inspection }}"
+
+# EOD inspection subnet.
+eod_subnet_inspection:
+  name: "{{ eod_network_inspection_name }}"
+  project: "admin"
+  cidr: "10.71.0.0/16"
+  enable_dhcp: false
+  allocation_pool_start: "10.71.0.1"
+  allocation_pool_end: "10.71.0.1"
 
 # EOD demo VLAN network name.
 eod_network_demo_vlan_name: "demo-vlan"
@@ -258,6 +308,49 @@ eod_subnet_demo_ib:
 # List of routers in the eod demo project. Format is as required by the
 # stackhpc.os-networks role.
 eod_routers:
+  - "{{ eod_router_provision }}"
+  - "{{ eod_router_cleaning }}"
+  - "{{ eod_router_inspection }}"
+  - "{{ eod_router_demo }}"
+
+# EOD bare metal provisioning router.
+eod_router_provision:
+  - name: "provision"
+    project: "admin"
+    interfaces:
+      - net: "{{ eod_network_internal_name }}"
+        subnet: "{{ eod_network_internal_name }}"
+        portip: "10.65.0.2"
+      - net: "provision-net"
+        subnet: "provision-net"
+        portip: "10.69.0.1"
+
+# EOD bare metal cleaning router.
+eod_router_cleaning:
+  - name: "cleaning"
+    project: "admin"
+    interfaces:
+      - net: "{{ eod_network_internal_name }}"
+        subnet: "{{ eod_network_internal_name }}"
+        portip: "10.65.0.3"
+      - net: "cleaning-net"
+        subnet: "cleaning-net"
+        portip: "10.70.0.1"
+
+# EOD bare metal inspection router.
+eod_router_inspection:
+  - name: "inspection"
+    project: "admin"
+    interfaces:
+      - net: "{{ eod_network_internal_name }}"
+        subnet: "{{ eod_network_internal_name }}"
+        portip: "10.65.0.4"
+      - net: "inspection-net"
+        subnet: "inspection-net"
+        portip: "10.71.0.1"
+
+# EOD demo router.
+eod_router_demo:
   - name: "{{ eod_demo_project.name }}"
     project: "{{ eod_demo_project.name }}"
     interfaces:
