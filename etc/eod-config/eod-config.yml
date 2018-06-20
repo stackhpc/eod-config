@@ -148,6 +148,7 @@ eod_network_ilab_name: "ilab"
 # EOD i-lab network.
 eod_network_ilab:
   name: "{{ eod_network_ilab_name }}"
+  project: "admin"
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
   provider_segmentation_id: 60
@@ -160,6 +161,7 @@ eod_network_ilab:
 # EOD i-lab subnet.
 eod_subnet_ilab:
   name: "{{ eod_network_ilab_name }}"
+  project: "admin"
   cidr: "10.60.0.0/16"
   gateway_ip: "10.60.210.1"
   allocation_pool_start: "10.60.2.0"
