@@ -442,6 +442,7 @@ eod_flavor_m1_xlarge:
 
 eod_images:
   - "{{ eod_image_centos }}"
+  - "{{ eod_image_centos_ib }}"
 
 # Latest CentOS image
 eod_image_centos:
@@ -456,6 +457,23 @@ eod_image_centos:
     os_distro: "centos"
     os_version: "7.5"
 
+# Latest CentOS image, with support for accessing the InfiniBand network.
+eod_image_centos_ib:
+  name: "CentOS7.5-IB"
+  elements:
+    - "centos7"
+    - "epel"
+    - "selinux-permissive"
+    - "dhcp-all-interfaces"
+    - "vm"
+    - "systemd-modules-load"
+  env:
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: "{{ eod_systemd_modules_load_ipoib }}"
+    DIB_YUM_REPO_CONF: "{{ eod_cloud_init_0_7_9_25_repo_file }}"
+  properties:
+    os_distro: "centos"
+    os_version: "7.5"
+
 # This creates a git checkout in the local user's home directory
 eod_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
 
@@ -466,3 +484,15 @@ eod_image_git_elements:
 # Path to include
 eod_image_elements:
   - "{{ eod_image_stackhpc_elements }}/elements"
+
+# Yum repository config file for cloud-init repo.
+# This contains a patched cloud-init package with support for configuring IP
+# over Infiniband interfaces defined in a config drive.
+eod_cloud_init_0_7_9_25_repo_file: "{{ playbook_dir }}/files/cloud-init-0.7.9-25.repo"
+
+# Systemd modules-load.d file content for loading IPoIB interfaces:
+eod_systemd_modules_load_ipoib: |
+  # Load the IP over IB module prior to running cloud-init --local.
+  ib_ipoib
+  # Load the Mellanox IB driver.
+  mlx4_ib
