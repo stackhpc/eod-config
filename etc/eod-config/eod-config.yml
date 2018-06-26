@@ -230,7 +230,7 @@ eod_network_storage:
   provider_physical_network: "physnet1"
   provider_segmentation_id: 66
   shared: true
-  external: true
+  external: false
   # Subnet configuration.
   subnets:
     - "{{ eod_subnet_storage }}"
