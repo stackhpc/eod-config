@@ -166,7 +166,7 @@ eod_subnet_ilab:
   name: "{{ eod_network_ilab_name }}"
   project: "admin"
   cidr: "10.60.0.0/16"
-  gateway_ip: "10.60.210.1"
+  gateway_ip: "10.60.255.1"
   allocation_pool_start: "10.60.2.0"
   allocation_pool_end: "10.60.5.255"
   # TODO: Add host route to storage subnet.
