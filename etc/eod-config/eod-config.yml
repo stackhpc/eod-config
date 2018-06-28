@@ -280,7 +280,7 @@ eod_network_demo_provider:
 # EoD demo provider VLAN subnet
 eod_subnet_demo_provider:
   name: "{{ eod_network_demo_provider_name }}"
-  project: "{{ demo_project.name }}"
+  project: "{{ eod_demo_project.name }}"
   cidr: "10.100.0.0/16"
   gateway_ip: "10.100.0.1"
   allocation_pool_start: "10.100.1.0"
