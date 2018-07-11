@@ -144,6 +144,7 @@ eod_networks:
   - "{{ eod_network_demo_vxlan }}"
   - "{{ eod_network_demo_hs_vlan }}"
   - "{{ eod_network_demo_ib }}"
+  - "{{ eod_network_demo_provider }}"
 
 # EOD i-lab network name.
 eod_network_ilab_name: "ilab"
@@ -286,6 +287,33 @@ eod_subnet_demo_vxlan:
   allocation_pool_start: "10.1.0.2"
   allocation_pool_end: "10.1.0.254"
 
+# EoD demo provider VLAN network name.
+eod_network_demo_provider_name: "demo-provider"
+
+# EoD demo provider VLAN
+eod_network_demo_provider:
+  name: "{{ eod_network_demo_provider_name }}"
+  project: "{{ eod_demo_project.name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 100
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_demo_provider }}"
+
+# EoD demo provider VLAN subnet
+eod_subnet_demo_provider:
+  name: "{{ eod_network_demo_provider_name }}"
+  project: "{{ eod_demo_project.name }}"
+  cidr: "10.100.0.0/16"
+  gateway_ip: "10.100.0.1"
+  allocation_pool_start: "10.100.1.0"
+  allocation_pool_end: "10.100.99.255"
+  host_routes:
+    - destination: "10.66.0.0/16"
+      nexthop: "10.100.0.2"
+
 # EOD demo high speed VLAN network name.
 eod_network_demo_hs_vlan_name: "demo-hs-vlan"
 
@@ -382,6 +410,7 @@ eod_router_demo:
       - "{{ eod_network_demo_vlan_name }}"
       - "{{ eod_network_demo_vxlan_name }}"
       - "{{ eod_network_demo_hs_vlan_name }}"
+      - "{{ eod_network_demo_provider_name }}"
     network: "{{ eod_network_ilab_name }}"
 
 # List of security groups in the eod demo project. Format is as required by the
