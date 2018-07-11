@@ -1,0 +1,13 @@
+---
+- name: Ensure Evolution of Darwin (EoD) OpenStack networks exist
+  hosts: localhost
+  tags:
+    - networks
+  roles:
+    - role: stackhpc.os-networks
+      os_networks_venv: "{{ eod_venv }}"
+      os_networks_auth_type: "{{ openstack_auth_type }}"
+      os_networks_auth: "{{ openstack_auth }}"
+      os_networks: "{{ eod_networks }}"
+      os_networks_routers: "{{ eod_routers }}"
+      os_networks_security_groups: "{{ eod_security_groups }}"

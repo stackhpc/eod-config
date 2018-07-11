@@ -1,0 +1,552 @@
+---
+###############################################################################
+# Configuration of OpenStack user environment for Evolution of Darwin (EoD).
+
+# Path to create virtualenv in which to install python dependencies.
+#eod_venv:
+
+# List of OpenStack projects. Format is as required by the stackhpc.os-projects
+# role.
+eod_projects:
+  - "{{ eod_demo_project }}"
+
+# Definition of the eod demo project. Format is as required by the
+# stackhpc.os-projects role.
+eod_demo_project:
+  name: demo
+  description: Evolution of Darwin (EoD) demo project
+  project_domain: default
+  user_domain: default
+  users: "{{ eod_demo_users }}"
+  quotas: "{{ eod_demo_quotas }}"
+
+# List of users in the eod demo project. Format is as required by the
+# stackhpc.os-projects role.
+eod_demo_users:
+  - name: hpcgodd1
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      37386366333266356464663865316538653361313830633036626436613432636361386463373139
+      3530303436393137613263656530333465313861316336330a623562323161326330383237303061
+      63663266383362336361666134313364653037623430363638363333346435366230613135623763
+      3063346333353831650a373138346633663663343638656163346533663735626133306438363066
+      6638
+    roles: "{{ eod_admin_roles }}"
+  - name: hpcjone1
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      61646465316236616438363166336435623762363365333238346432323533643561313666316331
+      6336643266376131316437363866666330666238333334660a396435343233656662313936306266
+      66383464303666386137313965633765346634313438653232636465653234663530313833396238
+      3330646133326662640a643633643162313364376631376433326433623231383034646338303536
+      6339
+    roles: "{{ eod_admin_roles }}"
+  - name: hpckunw1
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      64626161363761626230363861353530303166633061623437653236373134626332633134393061
+      6361633263616330623165616339393237613365656534330a383562626639306335363637393232
+      36383536613435396638396466353866623163376166626539623631363864373863323438393538
+      3438616665343436360a363838653035383334616366353862386537616232323366373535316638
+      3964
+    roles: "{{ eod_admin_roles }}"
+  - name: hpcszum1
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      33633034623464663664373539303937643337616261333232643433646631343563643931613535
+      3161303332313331373163346436653337663239353661630a666633616163663338306564383062
+      38343834336633396562376266383761353165306530613063666563663763643936643932653933
+      3933306236623634370a343161363963316230393762356463626436333136646636636338363435
+      3038
+    roles: "{{ eod_admin_roles }}"
+  - name: hpcszum2
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      30373137323663386537363135613030343938653633653939636134393661393431306337623063
+      6433353338356435663833396630393864343034386562390a373234396533313437656333366434
+      35633736633132663333313132623231643162616638633038636239343231336639646338663232
+      6363373735333139390a383932653666643730366532346633376565373334346165333065653063
+      3838
+    roles: "{{ eod_admin_roles }}"
+  - name: jmfg
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      37613339313032343464643633313139356465303965643538633439386235353961346637303163
+      3537333235306638396164376263646366313937373434370a653835333735356439653030323838
+      64646434313861353163366236323431306635373130656139336465653733383262336238633462
+      6435313738343964300a316430376466373636633237653164323831613230346532363961316138
+      6432
+    roles: "{{ eod_admin_roles }}"
+  - name: john
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      61343131383666623839623461666430383766303961326638353563333866346435363434616161
+      6664343663313032313433623562303566643563353132360a313634633961313033653261376538
+      62303332343532353331653734646533376637393032373337333961633138303438303161356531
+      3033636231353439320a346261633532383861346661313336383036393765326438383962336239
+      3735
+    roles: "{{ eod_user_roles }}"
+  - name: pfb29
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      63353637356133666337386463323735346437376237363437636336366231376636353063316134
+      6430316639646165633836396232343433626133346561650a623335646433343161366565303566
+      37353365396361393663373762366131353065323632363234323832643262313039343930333930
+      6536323764323133380a646537643038386237326634653034663834643939633561623438653235
+      3831
+    roles: "{{ eod_admin_roles }}"
+  - name: sclt100
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      34383365376530323033326136336235326563636237623734663866316164386430613532353765
+      6162393664343363393234623237623639643730323631650a633435643162323331343666303266
+      61363238303830663765323538366335313633613561323530666233383264393563383936373437
+      6161623164396531310a353939346634353261373531396133313561356361656533333331386464
+      3261
+    roles: "{{ eod_admin_roles }}"
+
+# List of roles to apply to admin users in the eod demo project.
+eod_admin_roles:
+  - admin
+  - heat_stack_owner
+  - monasca-user
+
+# List of roles to apply to regular users in the eod demo project.
+eod_user_roles:
+  - heat_stack_owner
+  - observer
+  - monasca-read-only-user
+
+# Dict of quotas to set for the eod demo project.
+eod_demo_quotas:
+  cores: -1
+  floating_ips: -1
+  injected_files: -1
+  injected_file_size: -1
+  instances: -1
+  key_pairs: -1
+  fixed_ips: -1
+  ram: -1
+  secgroup_rules: -1
+  secgroups: -1
+
+###############################################################################
+# Configuration of networks, subnets and routers for EoD.
+
+# List of networks in the eod system. Format is as required by the
+# stackhpc.os-networks role.
+eod_networks:
+  - "{{ eod_network_ilab }}"
+  - "{{ eod_network_internal }}"
+  - "{{ eod_network_inspection }}"
+  - "{{ eod_network_storage }}"
+  - "{{ eod_network_demo_vlan }}"
+  - "{{ eod_network_demo_vxlan }}"
+  - "{{ eod_network_demo_hs_vlan }}"
+  - "{{ eod_network_demo_ib }}"
+  - "{{ eod_network_demo_provider }}"
+
+# EOD i-lab network name.
+eod_network_ilab_name: "ilab"
+
+# EOD i-lab network.
+eod_network_ilab:
+  name: "{{ eod_network_ilab_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 60
+  shared: true
+  external: true
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_ilab }}"
+
+# EOD i-lab subnet.
+eod_subnet_ilab:
+  name: "{{ eod_network_ilab_name }}"
+  project: "admin"
+  cidr: "10.60.0.0/16"
+  gateway_ip: "10.60.255.1"
+  allocation_pool_start: "10.60.2.0"
+  allocation_pool_end: "10.60.5.255"
+  # TODO: Add host route to storage subnet.
+
+# EOD internal network name.
+eod_network_internal_name: "internal"
+
+# EOD internal network.
+eod_network_internal:
+  name: "{{ eod_network_internal_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 65
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_internal }}"
+
+# EOD internal subnet.
+eod_subnet_internal:
+  name: "{{ eod_network_internal_name }}"
+  project: "admin"
+  cidr: "10.65.0.0/16"
+  enable_dhcp: false
+  allocation_pool_start: "10.65.0.2"
+  allocation_pool_end: "10.65.0.4"
+
+# EOD inspection network name.
+eod_network_inspection_name: "inspection-net"
+
+# EOD inspection network.
+eod_network_inspection:
+  name: "{{ eod_network_inspection_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 71
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_inspection }}"
+
+# EOD inspection subnet.
+eod_subnet_inspection:
+  name: "{{ eod_network_inspection_name }}"
+  project: "admin"
+  cidr: "10.71.0.0/16"
+  enable_dhcp: false
+  allocation_pool_start: "10.71.0.1"
+  allocation_pool_end: "10.71.0.1"
+
+# EOD storage network name.
+eod_network_storage_name: "storage"
+
+# EOD storage network.
+eod_network_storage:
+  name: "{{ eod_network_storage_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 66
+  shared: true
+  external: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_storage }}"
+
+# EOD storage subnet.
+eod_subnet_storage:
+  name: "{{ eod_network_storage_name }}"
+  project: "admin"
+  cidr: "10.66.0.0/16"
+  allocation_pool_start: "10.66.2.0"
+  allocation_pool_end: "10.66.2.255"
+
+# EOD demo VLAN network name.
+eod_network_demo_vlan_name: "demo-vlan"
+
+# EOD demo VLAN network.
+eod_network_demo_vlan:
+  name: "{{ eod_network_demo_vlan_name }}"
+  project: "{{ eod_demo_project.name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_demo_vlan }}"
+
+# EOD demo VLAN subnet.
+eod_subnet_demo_vlan:
+  name: "{{ eod_network_demo_vlan_name }}"
+  project: "{{ eod_demo_project.name }}"
+  cidr: "10.0.0.0/24"
+  gateway_ip: "10.0.0.1"
+  allocation_pool_start: "10.0.0.2"
+  allocation_pool_end: "10.0.0.254"
+
+# EOD demo VXLAN network name.
+eod_network_demo_vxlan_name: "demo-vxlan"
+
+# EOD demo VXLAN network.
+eod_network_demo_vxlan:
+  name: "{{ eod_network_demo_vxlan_name }}"
+  project: "{{ eod_demo_project.name }}"
+  provider_network_type: "vxlan"
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_demo_vxlan }}"
+
+# EOD demo VXLAN subnet.
+eod_subnet_demo_vxlan:
+  name: "{{ eod_network_demo_vxlan_name }}"
+  project: "{{ eod_demo_project.name }}"
+  cidr: "10.1.0.0/24"
+  gateway_ip: "10.1.0.1"
+  allocation_pool_start: "10.1.0.2"
+  allocation_pool_end: "10.1.0.254"
+
+# EoD demo provider VLAN network name.
+eod_network_demo_provider_name: "demo-provider"
+
+# EoD demo provider VLAN
+eod_network_demo_provider:
+  name: "{{ eod_network_demo_provider_name }}"
+  project: "{{ eod_demo_project.name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 100
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_demo_provider }}"
+
+# EoD demo provider VLAN subnet
+eod_subnet_demo_provider:
+  name: "{{ eod_network_demo_provider_name }}"
+  project: "{{ eod_demo_project.name }}"
+  cidr: "10.100.0.0/16"
+  gateway_ip: "10.100.0.1"
+  allocation_pool_start: "10.100.1.0"
+  allocation_pool_end: "10.100.99.255"
+  host_routes:
+    - destination: "10.66.0.0/16"
+      nexthop: "10.100.0.2"
+
+# EOD demo high speed VLAN network name.
+eod_network_demo_hs_vlan_name: "demo-hs-vlan"
+
+# EOD demo high speed VLAN network.
+eod_network_demo_hs_vlan:
+  name: "{{ eod_network_demo_hs_vlan_name }}"
+  project: "{{ eod_demo_project.name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet2"
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_demo_hs_vlan }}"
+
+# EOD demo high speed VLAN subnet.
+eod_subnet_demo_hs_vlan:
+  name: "{{ eod_network_demo_hs_vlan_name }}"
+  project: "{{ eod_demo_project.name }}"
+  cidr: "10.2.0.0/24"
+  gateway_ip: "10.2.0.1"
+  allocation_pool_start: "10.2.0.2"
+  allocation_pool_end: "10.2.0.254"
+
+# EOD demo InfiniBand network name.
+eod_network_demo_ib_name: "demo-ib"
+
+# EOD demo InfiniBand network.
+eod_network_demo_ib:
+  name: "{{ eod_network_demo_ib_name }}"
+  project: "{{ eod_demo_project.name }}"
+  provider_network_type: "flat"
+  provider_physical_network: "physnet3"
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_demo_ib }}"
+
+# EOD demo InfiniBand subnet.
+eod_subnet_demo_ib:
+  name: "{{ eod_network_demo_ib_name }}"
+  project: "{{ eod_demo_project.name }}"
+  cidr: "10.3.0.0/24"
+  enable_dhcp: false
+  allocation_pool_start: "10.3.0.1"
+  allocation_pool_end: "10.3.0.254"
+
+# List of routers in the eod demo project. Format is as required by the
+# stackhpc.os-networks role.
+eod_routers:
+  - "{{ eod_router_provision }}"
+  - "{{ eod_router_cleaning }}"
+  - "{{ eod_router_inspection }}"
+  - "{{ eod_router_demo }}"
+
+# EOD bare metal provisioning router.
+eod_router_provision:
+  - name: "provision"
+    project: "admin"
+    interfaces:
+      - net: "{{ eod_network_internal_name }}"
+        subnet: "{{ eod_network_internal_name }}"
+        portip: "10.65.0.2"
+      - net: "provision-net"
+        subnet: "provision-net"
+        portip: "10.69.0.1"
+
+# EOD bare metal cleaning router.
+eod_router_cleaning:
+  - name: "cleaning"
+    project: "admin"
+    interfaces:
+      - net: "{{ eod_network_internal_name }}"
+        subnet: "{{ eod_network_internal_name }}"
+        portip: "10.65.0.3"
+      - net: "cleaning-net"
+        subnet: "cleaning-net"
+        portip: "10.70.0.1"
+
+# EOD bare metal inspection router.
+eod_router_inspection:
+  - name: "inspection"
+    project: "admin"
+    interfaces:
+      - net: "{{ eod_network_internal_name }}"
+        subnet: "{{ eod_network_internal_name }}"
+        portip: "10.65.0.4"
+      - net: "inspection-net"
+        subnet: "inspection-net"
+        portip: "10.71.0.1"
+
+# EOD demo router.
+eod_router_demo:
+  - name: "{{ eod_demo_project.name }}"
+    project: "{{ eod_demo_project.name }}"
+    interfaces:
+      - "{{ eod_network_demo_vlan_name }}"
+      - "{{ eod_network_demo_vxlan_name }}"
+      - "{{ eod_network_demo_hs_vlan_name }}"
+      - "{{ eod_network_demo_provider_name }}"
+    network: "{{ eod_network_ilab_name }}"
+
+# List of security groups in the eod demo project. Format is as required by the
+# stackhpc.os-networks role.
+# FIXME: Security group rules cannot be assigned to another project, due to
+# https://github.com/ansible/ansible/issues/34467, and be created when another
+# group with the same name exists in a different project either, due to
+# https://github.com/ansible/ansible/issues/30292. These issues will be fixed
+# by https://github.com/ansible/ansible/pull/34472 when it is merged. Until
+# then, you can use the issue-34467 branch of the stackhpc ansible repo to
+# register groups (after uncommenting them):
+# https://github.com/stackhpc/ansible/tree/issue-34467.
+eod_security_groups: []
+  # Default security group for the eod demo project.
+  #- name: default
+  #  #project: "{{ eod_demo_project.name }}"
+  #  rules:
+  #    # Allow ICMP (for ping, etc.).
+  #    - protocol: icmp
+  #    # Allow SSH.
+  #    - protocol: tcp
+  #      port_range_min: 22
+  #      port_range_max: 22
+
+###############################################################################
+# Configuration of nova flavors for EoD.
+
+# List of nova flavors in the eod demo project. Format is as required by the
+# stackhpc.os-flavors role.
+eod_flavors:
+  - "{{ eod_flavor_baremetal_A }}"
+  - "{{ eod_flavor_m1_tiny }}"
+  - "{{ eod_flavor_m1_small }}"
+  - "{{ eod_flavor_m1_medium }}"
+  - "{{ eod_flavor_m1_large }}"
+  - "{{ eod_flavor_m1_xlarge }}"
+
+# Bare metal compute node.
+eod_flavor_baremetal_A:
+  name: "baremetal-A"
+  ram: 65536
+  disk: 0
+  vcpus: 64
+  extra_specs:
+    "resources:CUSTOM_BAREMETAL_A": 1
+    "resources:VCPU": 0
+    "resources:MEMORY_MB": 0
+    "resources:DISK_GB": 0
+
+# Virtual machine flavors.
+eod_flavor_m1_tiny:
+  name: "m1.tiny"
+  ram: 512
+  disk: 1
+  vcpus: 1
+
+eod_flavor_m1_small:
+  name: "m1.small"
+  ram: 2048
+  disk: 20
+  vcpus: 1
+
+eod_flavor_m1_medium:
+  name: "m1.medium"
+  ram: 4096
+  disk: 40
+  vcpus: 2
+
+eod_flavor_m1_large:
+  name: "m1.large"
+  ram: 8192
+  disk: 40
+  vcpus: 4
+
+eod_flavor_m1_xlarge:
+  name: "m1.xlarge"
+  ram: 16384
+  disk: 100
+  vcpus: 8
+
+###############################################################################
+# Software images for EoD
+
+eod_images:
+  - "{{ eod_image_centos }}"
+  - "{{ eod_image_centos_ib }}"
+
+# Latest CentOS image
+eod_image_centos:
+  name: "CentOS7.5"
+  elements:
+    - "centos7"
+    - "epel"
+    - "selinux-permissive"
+    - "dhcp-all-interfaces"
+    - "vm"
+  properties:
+    os_distro: "centos"
+    os_version: "7.5"
+
+# Latest CentOS image, with support for accessing the InfiniBand network.
+eod_image_centos_ib:
+  name: "CentOS7.5-IB"
+  elements:
+    - "centos7"
+    - "epel"
+    - "selinux-permissive"
+    - "dhcp-all-interfaces"
+    - "vm"
+    - "systemd-modules-load"
+  env:
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: "{{ eod_systemd_modules_load_ipoib }}"
+    DIB_YUM_REPO_CONF: "{{ eod_cloud_init_0_7_9_25_repo_file }}"
+  properties:
+    os_distro: "centos"
+    os_version: "7.5"
+
+# This creates a git checkout in the local user's home directory
+eod_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
+
+eod_image_git_elements:
+  - repo: "https://github.com/stackhpc/stackhpc-image-elements.git"
+    local: "{{ eod_image_stackhpc_elements }}"
+
+# Path to include
+eod_image_elements:
+  - "{{ eod_image_stackhpc_elements }}/elements"
+
+# Yum repository config file for cloud-init repo.
+# This contains a patched cloud-init package with support for configuring IP
+# over Infiniband interfaces defined in a config drive.
+eod_cloud_init_0_7_9_25_repo_file: "{{ playbook_dir }}/files/cloud-init-0.7.9-25.repo"
+
+# Systemd modules-load.d file content for loading IPoIB interfaces:
+eod_systemd_modules_load_ipoib: |
+  # Load the IP over IB module prior to running cloud-init --local.
+  ib_ipoib
+  # Load the Mellanox IB driver.
+  mlx4_ib
