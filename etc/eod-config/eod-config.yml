@@ -143,8 +143,8 @@ eod_networks:
   - "{{ eod_network_demo_vlan }}"
   - "{{ eod_network_demo_vxlan }}"
   - "{{ eod_network_demo_hs_vlan }}"
-  - "{{ eod_network_demo_ib }}"
   - "{{ eod_network_demo_provider }}"
+  - "{{ eod_network_infiniband }}"
 
 # EOD i-lab network name.
 eod_network_ilab_name: "ilab"
@@ -337,23 +337,24 @@ eod_subnet_demo_hs_vlan:
   allocation_pool_end: "10.2.0.254"
 
 # EOD demo InfiniBand network name.
-eod_network_demo_ib_name: "demo-ib"
+eod_network_infiniband_name: "infiniband"
 
 # EOD demo InfiniBand network.
-eod_network_demo_ib:
-  name: "{{ eod_network_demo_ib_name }}"
-  project: "{{ eod_demo_project.name }}"
+eod_network_infiniband:
+  name: "{{ eod_network_infiniband_name }}"
+  project: "admin"
   provider_network_type: "flat"
   provider_physical_network: "physnet3"
+  shared: true
   # Subnet configuration.
   subnets:
-    - "{{ eod_subnet_demo_ib }}"
+    - "{{ eod_subnet_infiniband }}"
 
 # EOD demo InfiniBand subnet.
-eod_subnet_demo_ib:
-  name: "{{ eod_network_demo_ib_name }}"
-  project: "{{ eod_demo_project.name }}"
-  cidr: "10.3.0.0/24"
+eod_subnet_infiniband:
+  name: "{{ eod_network_infiniband_name }}"
+  project: "admin"
+  cidr: "10.3.0.0/16"
   enable_dhcp: false
   allocation_pool_start: "10.3.0.1"
   allocation_pool_end: "10.3.0.254"
