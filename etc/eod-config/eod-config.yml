@@ -9,6 +9,7 @@
 # role.
 eod_projects:
   - "{{ eod_demo_project }}"
+  - "{{ eod_euclid_project }}"
 
 # Definition of the eod demo project. Format is as required by the
 # stackhpc.os-projects role.
@@ -17,12 +18,22 @@ eod_demo_project:
   description: Evolution of Darwin (EoD) demo project
   project_domain: default
   user_domain: default
-  users: "{{ eod_demo_users }}"
-  quotas: "{{ eod_demo_quotas }}"
+  users: "{{ eod_resops_users }}"
+  quotas: "{{ eod_unlimited_quotas }}"
 
-# List of users in the eod demo project. Format is as required by the
+# Definition of the EoD EUCLID project. Format is as required by the
 # stackhpc.os-projects role.
-eod_demo_users:
+eod_euclid_project:
+  name: euclid
+  description: EUCLID Consortium
+  project_domain: default
+  user_domain: default
+  users: "{{ eod_resops_users }}"
+  quotas: "{{ eod_unlimited_quotas }}"
+
+# List of users in the EoD ResOps team. Format is as required by the
+# stackhpc.os-projects role.
+eod_resops_users:
   - name: hpcgodd1
     password: !vault |
       $ANSIBLE_VAULT;1.1;AES256
@@ -117,8 +128,8 @@ eod_user_roles:
   - observer
   - monasca-read-only-user
 
-# Dict of quotas to set for the eod demo project.
-eod_demo_quotas:
+# Dict of quotas to set for projects with unlimited resource quotas
+eod_unlimited_quotas:
   cores: -1
   floating_ips: -1
   injected_files: -1
@@ -145,6 +156,8 @@ eod_networks:
   - "{{ eod_network_demo_hs_vlan }}"
   - "{{ eod_network_demo_ib }}"
   - "{{ eod_network_demo_provider }}"
+  - "{{ eod_network_euclid_vlan }}"
+  - "{{ eod_network_euclid_data }}"
 
 # EOD i-lab network name.
 eod_network_ilab_name: "ilab"
@@ -253,6 +266,7 @@ eod_network_demo_vlan:
   project: "{{ eod_demo_project.name }}"
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
+  shared: false
   # Subnet configuration.
   subnets:
     - "{{ eod_subnet_demo_vlan }}"
@@ -274,6 +288,7 @@ eod_network_demo_vxlan:
   name: "{{ eod_network_demo_vxlan_name }}"
   project: "{{ eod_demo_project.name }}"
   provider_network_type: "vxlan"
+  shared: false
   # Subnet configuration.
   subnets:
     - "{{ eod_subnet_demo_vxlan }}"
@@ -323,6 +338,7 @@ eod_network_demo_hs_vlan:
   project: "{{ eod_demo_project.name }}"
   provider_network_type: "vlan"
   provider_physical_network: "physnet2"
+  shared: false
   # Subnet configuration.
   subnets:
     - "{{ eod_subnet_demo_hs_vlan }}"
@@ -345,6 +361,7 @@ eod_network_demo_ib:
   project: "{{ eod_demo_project.name }}"
   provider_network_type: "flat"
   provider_physical_network: "physnet3"
+  shared: false
   # Subnet configuration.
   subnets:
     - "{{ eod_subnet_demo_ib }}"
@@ -358,6 +375,56 @@ eod_subnet_demo_ib:
   allocation_pool_start: "10.3.0.1"
   allocation_pool_end: "10.3.0.254"
 
+# EoD EUCLID Consortium tenant VLAN network name.
+eod_network_euclid_vlan_name: "euclid-vlan"
+
+# EoD EUCLID Consortium VLAN
+eod_network_euclid_vlan:
+  name: "{{ eod_network_euclid_vlan_name }}"
+  project: "{{ eod_euclid_project.name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_euclid_vlan }}"
+
+# EoD EUCLID Consortium tenant VLAN subnet
+eod_subnet_euclid_vlan:
+  name: "{{ eod_network_euclid_vlan_name }}"
+  project: "{{ eod_euclid_project.name }}"
+  cidr: "10.0.0.0/16"
+  gateway_ip: "10.0.0.1"
+  allocation_pool_start: "10.0.1.0"
+  allocation_pool_end: "10.0.99.255"
+
+# EoD EUCLID Consortium provider VLAN network name.
+eod_network_euclid_data_name: "euclid-data"
+
+# EoD EUCLID Consortium provider VLAN
+eod_network_euclid_data:
+  name: "{{ eod_network_euclid_data_name }}"
+  project: "{{ eod_euclid_project.name }}"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 101
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_euclid_data }}"
+
+# EoD EUCLID Consortium provider VLAN subnet
+eod_subnet_euclid_data:
+  name: "{{ eod_network_euclid_data_name }}"
+  project: "{{ eod_euclid_project.name }}"
+  cidr: "10.101.0.0/16"
+  gateway_ip: "10.101.0.1"
+  allocation_pool_start: "10.101.1.0"
+  allocation_pool_end: "10.101.99.255"
+  host_routes:
+    - destination: "10.66.0.0/16"
+      nexthop: "10.101.0.2"
+
 # List of routers in the eod demo project. Format is as required by the
 # stackhpc.os-networks role.
 eod_routers:
@@ -365,6 +432,7 @@ eod_routers:
   - "{{ eod_router_cleaning }}"
   - "{{ eod_router_inspection }}"
   - "{{ eod_router_demo }}"
+  - "{{ eod_router_euclid }}"
 
 # EOD bare metal provisioning router.
 eod_router_provision:
@@ -411,6 +479,15 @@ eod_router_demo:
       - "{{ eod_network_demo_vxlan_name }}"
       - "{{ eod_network_demo_hs_vlan_name }}"
       - "{{ eod_network_demo_provider_name }}"
+    network: "{{ eod_network_ilab_name }}"
+
+# EOD EUCLID Consortium router.
+eod_router_euclid:
+  - name: "{{ eod_euclid_project.name }}"
+    project: "{{ eod_euclid_project.name }}"
+    interfaces:
+      - "{{ eod_network_euclid_vlan_name }}"
+      - "{{ eod_network_euclid_data_name }}"
     network: "{{ eod_network_ilab_name }}"
 
 # List of security groups in the eod demo project. Format is as required by the
@@ -497,6 +574,7 @@ eod_flavor_m1_xlarge:
 eod_images:
   - "{{ eod_image_centos }}"
   - "{{ eod_image_centos_ib }}"
+  - "{{ eod_image_centos_ohpc }}"
 
 # Latest CentOS image
 eod_image_centos:
@@ -527,6 +605,28 @@ eod_image_centos_ib:
   properties:
     os_distro: "centos"
     os_version: "7.5"
+
+# Latest CentOS image, with OpenHPC and support for accessing the InfiniBand network.
+eod_image_centos_ohpc:
+  name: "CentOS7.5-OpenHPC"
+  elements:
+    - "centos7"
+    - "epel"
+    - "openhpc"
+    - "selinux-permissive"
+    - "dhcp-all-interfaces"
+    - "vm"
+    - "systemd-modules-load"
+  env:
+    DIB_SYSTEMD_MODULES_LOAD_CONTENT: "{{ eod_systemd_modules_load_ipoib }}"
+    DIB_YUM_REPO_CONF: "{{ eod_cloud_init_0_7_9_25_repo_file }}"
+    DIB_OPENHPC_GRPLIST: "ohpc-base-compute ohpc-slurm-client 'InfiniBand Support'"
+    DIB_OPENHPC_PKGLIST: "lmod-ohpc mrsh-ohpc lustre-client-ohpc mvapich2-gnu-ohpc ntp"
+    DIB_OPENHPC_DELETE_REPO: "n"
+  properties:
+    os_distro: "centos"
+    os_version: "7.5"
+
 
 # This creates a git checkout in the local user's home directory
 eod_image_stackhpc_elements: "{{ ansible_env.PWD }}/stackhpc-image-elements"
