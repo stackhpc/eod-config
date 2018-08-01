@@ -9,6 +9,37 @@
 # role.
 eod_projects:
   - "{{ eod_demo_project }}"
+  - "{{ eod_vcycle_project }}"
+
+eod_vcycle_project:
+  name: iris-vcycle
+  description: IRIS-Vcycle R&D
+  project_domain: default
+  user_domain: default
+  users: "{{ eod_vcycle_users }}"
+  quotas: "{{ eod_unlimited_quotas }}"
+
+eod_vcycle_users:
+  # Andrew McNab
+  - name: aim10
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      66366235383361373738623830636634383162346433376137643263636337646636663532353933
+      6339393932623331353665653239643439306530396230620a613634626133653131343130663032
+      31666331386537653038613333316530323361663533366138363264323734633433383462313832
+      3233383231363738370a616261313737656663323064363264373463616562393264393234383330
+      6531
+    roles: "{{ eod_user_roles }}"
+  # Paul Browne
+  - name: pfb29
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      63353637356133666337386463323735346437376237363437636336366231376636353063316134
+      6430316639646165633836396232343433626133346561650a623335646433343161366565303566
+      37353365396361393663373762366131353065323632363234323832643262313039343930333930
+      6536323764323133380a646537643038386237326634653034663834643939633561623438653235
+      3831
+    roles: "{{ eod_admin_roles }}"
 
 # Definition of the eod demo project. Format is as required by the
 # stackhpc.os-projects role.
@@ -18,7 +49,7 @@ eod_demo_project:
   project_domain: default
   user_domain: default
   users: "{{ eod_demo_users }}"
-  quotas: "{{ eod_demo_quotas }}"
+  quotas: "{{ eod_unlimited_quotas }}"
 
 # List of users in the eod demo project. Format is as required by the
 # stackhpc.os-projects role.
@@ -118,7 +149,7 @@ eod_user_roles:
   - monasca-read-only-user
 
 # Dict of quotas to set for the eod demo project.
-eod_demo_quotas:
+eod_unlimited_quotas:
   cores: -1
   floating_ips: -1
   injected_files: -1
