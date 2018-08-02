@@ -199,6 +199,7 @@ eod_networks:
   - "{{ eod_network_infiniband }}"
   - "{{ eod_network_euclid_vlan }}"
   - "{{ eod_network_euclid_data }}"
+  - "{{ eod_network_vcycle_vxlan}}"
 
 # EOD i-lab network name.
 eod_network_ilab_name: "ilab"
@@ -466,6 +467,28 @@ eod_subnet_euclid_data:
     - destination: "10.66.0.0/16"
       nexthop: "10.101.0.2"
 
+# vcycle VXLAN network
+eod_network_vcycle_vxlan_name: "vcycle-vxlan"
+
+# vcycle VXLAN network
+eod_network_vcycle_vxlan:
+  name: "{{ eod_network_vcycle_vxlan_name }}"
+  project: "{{ eod_vcycle_project.name }}"
+  provider_network_type: "vxlan"
+  shared: false
+  # Subnet configuration.
+  subnets:
+    - "{{ eod_subnet_vcycle_vxlan }}"
+
+# vcycle VXLAN subnet.
+eod_subnet_vcycle_vxlan:
+  name: "{{ eod_network_vcycle_vxlan_name }}"
+  project: "{{ eod_vcycle_project.name }}"
+  cidr: "10.0.0.0/24"
+  gateway_ip: "10.0.0.1"
+  allocation_pool_start: "10.0.0.2"
+  allocation_pool_end: "10.0.0.254"
+
 # List of routers in the eod demo project. Format is as required by the
 # stackhpc.os-networks role.
 eod_routers:
@@ -529,6 +552,14 @@ eod_router_euclid:
     interfaces:
       - "{{ eod_network_euclid_vlan_name }}"
       - "{{ eod_network_euclid_data_name }}"
+    network: "{{ eod_network_ilab_name }}"
+
+# EOD vcycle router.
+eod_router_vcycle:
+  - name: "{{ eod_vcycle_project.name }}"
+    project: "{{ eod_vcycle_project.name }}"
+    interfaces:
+      - "{{ eod_network_vcycle_vxlan_name }}"
     network: "{{ eod_network_ilab_name }}"
 
 # List of security groups in the eod demo project. Format is as required by the
