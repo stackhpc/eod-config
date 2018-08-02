@@ -115,6 +115,7 @@ eod_resops_users:
       6161623164396531310a353939346634353261373531396133313561356361656533333331386464
       3261
     roles: "{{ eod_admin_roles }}"
+  # Build user for shared cluster appliances.
   - name: wendy
     password: !vault |
       $ANSIBLE_VAULT;1.1;AES256
