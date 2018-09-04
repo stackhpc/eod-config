@@ -59,8 +59,20 @@ eod_euclid_project:
   description: EUCLID Consortium
   project_domain: default
   user_domain: default
-  users: "{{ eod_resops_users }}"
+  users: "{{ eod_resops_users + eod_euclid_users }}"
   quotas: "{{ eod_unlimited_quotas }}"
+
+# List of EUCLID users
+eod_euclid_users:
+  - name: hpcholl1
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      37303237653333356235653039633664633039336165616336643130373034393433306537393265
+      6162646161373464616665663637633833643164643534650a363661333733313739363135313564
+      65363266356637333066303032616462393533366534383933393864633664383565633739326661
+      3864663139326436360a656230323762646233653562323161656638353463663939363361353864
+      6536
+    roles: "{{ eod_user_roles }}"
 
 # List of users in the EoD ResOps team. Format is as required by the
 # stackhpc.os-projects role.
