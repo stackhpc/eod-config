@@ -59,7 +59,7 @@ eod_euclid_project:
   description: EUCLID Consortium
   project_domain: default
   user_domain: default
-  users: "{{ eod_resops_users }} + {{ eod_euclid_users }}"
+  users: "{{ eod_resops_users + eod_euclid_users }}"
   quotas: "{{ eod_unlimited_quotas }}"
 
 # List of EUCLID users
