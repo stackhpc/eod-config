@@ -1,0 +1,13 @@
+---
+- name: Ensure Cumulus @ Cambridge OpenStack networks exist
+  hosts: localhost
+  tags:
+    - networks
+  roles:
+    - role: stackhpc.os-networks
+      os_networks_venv: "{{ cumulus_venv }}"
+      os_networks_auth_type: "{{ openstack_auth_type }}"
+      os_networks_auth: "{{ openstack_auth }}"
+      os_networks: "{{ cumulus_networks }}"
+      os_networks_routers: "{{ cumulus_routers }}"
+      os_networks_security_groups: "{{ cumulus_security_groups }}"

@@ -1,11 +1,11 @@
 ---
-- name: Ensure Evolution of Darwin (EoD) OpenStack projects exist
+- name: Ensure Cumulus @ Cambridge OpenStack projects exist
   hosts: localhost
   tags:
     - project
   roles:
     - role: stackhpc.os-projects
-      os_projects_venv: "{{ eod_venv }}"
+      os_projects_venv: "{{ cumulus_venv }}"
       os_projects_auth_type: "{{ openstack_auth_type }}"
       os_projects_admin_auth: "{{ openstack_auth }}"
-      os_projects: "{{ eod_projects }}"
+      os_projects: "{{ cumulus_projects }}"

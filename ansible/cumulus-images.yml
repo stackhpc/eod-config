@@ -1,0 +1,14 @@
+---
+- name: Generate Cumulus @ Cambridge software images
+  hosts: localhost
+  tags:
+    - images
+  roles:
+    - role: stackhpc.os-images
+      os_images_venv: "{{ cumulus_venv }}"
+      os_images_cache: "{{ ansible_env.PWD }}/cumulus-config-image-cache"
+      os_images_auth_type: "{{ openstack_auth_type }}"
+      os_images_auth: "{{ openstack_auth }}"
+      os_images_list: "{{ cumulus_images }}"
+      os_images_elements: "{{ cumulus_image_elements }}"
+      os_images_git_elements: "{{ cumulus_image_git_elements }}"

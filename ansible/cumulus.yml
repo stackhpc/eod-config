@@ -1,0 +1,6 @@
+---
+# Top level playbook that includes all others.
+- include: cumulus-project.yml
+- include: cumulus-networks.yml
+- include: cumulus-flavors.yml
+- include: cumulus-images.yml

@@ -2,10 +2,10 @@
 
 SCRIPT=${BASH_SOURCE[0]}
 TOOLS_PATH=$(dirname ${SCRIPT})
-EOD_CONFIG_PATH=$(dirname ${TOOLS_PATH})
-cd ${EOD_CONFIG_PATH}
+CUMULUS_CONFIG_PATH=$(dirname ${TOOLS_PATH})
+cd ${CUMULUS_CONFIG_PATH}
 
-PLAYBOOK=ansible/eod.yml
+PLAYBOOK=ansible/cumulus.yml
 
 while getopts ":p:" opt; do
   case $opt in
@@ -33,5 +33,5 @@ echo "Running playbook $PLAYBOOK"
 exec ansible-playbook \
   ${PLAYBOOK} \
   -i ansible/inventory \
-  -e @etc/eod-config/eod-config.yml \
+  -e @etc/cumulus-config/cumulus-config.yml \
   $@

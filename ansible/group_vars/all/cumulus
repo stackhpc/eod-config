@@ -1,0 +1,45 @@
+---
+###############################################################################
+# Configuration of OpenStack user environment for Cumulus @ Cambridge.
+
+# Path to create virtualenv in which to install python dependencies.
+cumulus_venv: "{{ ansible_env.PWD }}/cumulus-config-venv"
+
+# List of OpenStack projects. Format is as required by the stackhpc.os-projects
+# role.
+cumulus_projects: []
+
+###############################################################################
+# Configuration of networks, subnets and routers for Cumulus @ Cambridge.
+
+# List of networks in the cumulus project. Format is as required by the
+# stackhpc.os-networks role.
+cumulus_networks: []
+
+# List of routers in the cumulus project. Format is as required by the
+# stackhpc.os-networks role.
+cumulus_routers: []
+
+# List of security groups in the cumulus demo project. Format is as required by the
+# stackhpc.os-networks role.
+cumulus_security_groups: []
+
+###############################################################################
+# Configuration of nova flavors for Cumulus @ Cambridge.
+
+# List of nova flavors in the cumulus project. Format is as required by the
+# stackhpc.os-flavors role.
+cumulus_flavors: []
+
+###############################################################################
+# Configuration of glance images for Cumulus @ Cambridge.
+
+# List of glance images in the cumulus project. Format is as required by the
+# stackhpc.os-images role.
+cumulus_images: []
+
+# List of additional diskimage-builder elements to incorporate on the path
+cumulus_image_elements: []
+
+# List of diskimage-builder element git repos to pull
+cumulus_image_git_elements: []

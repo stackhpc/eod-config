@@ -1,6 +1,0 @@
----
-# Top level playbook that includes all others.
-- include: eod-project.yml
-- include: eod-networks.yml
-- include: eod-flavors.yml
-- include: eod-images.yml

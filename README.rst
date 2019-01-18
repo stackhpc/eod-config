@@ -1,16 +1,16 @@
-=======================================
-Evolution of Darwin (EoD) Configuration
-=======================================
+=============================================
+Cumulus @ Cambridge Configuration
+=============================================
 
 This project contains Ansible playbooks and configuration of infrastructure on
-an existing OpenStack cloud for the Cambridge UIS Evolution of Darwin (EoD)
+an existing OpenStack cloud for the Cumulus @ Cambridge
 system.  This includes:
 
 * A demo project and user accounts in OpenStack keystone.
 * Compute node flavors in OpenStack nova for the various compute and storage
   node types.
-* Networks, subnets and routers in OpenStack neutron for the external ``ilab``
-  and internal networks.
+* Networks, subnets and routers in OpenStack neutron for the external and
+  internal networks.
 
 Preparation
 ===========
@@ -44,24 +44,24 @@ To configure OpenStack infrastructure:
 
 .. code-block::
 
-   $ tools/eod-config
+   $ tools/cumulus-config
 
 To run a specific playbook:
 
 .. code-block::
 
-   $ tools/eod-config -p </path/to/playbook>
+   $ tools/cumulus-config -p </path/to/playbook>
 
 To specify additional arguments to ``ansible-playbook``, separate them with a
 double hyphen (``--``):
 
 .. code-block::
 
-   $ tools/eod-config -- <arguments>
+   $ tools/cumulus-config -- <arguments>
 
 For example, a vault secret stored as a file can be passed as an extra
 configuration parameter:
 
 .. code-block::
 
-   $ tools/eod-config -- --vault-password-file config-secret.vault 
+   $ tools/cumulus-config -- --vault-password-file config-secret.vault 
