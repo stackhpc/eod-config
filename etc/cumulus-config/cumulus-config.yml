@@ -417,7 +417,7 @@ cumulus_fedora_atomic_27:
     os_distro: "fedora-atomic"
     os_version: "27"
 
-cumulus_fedora_atomic_27:
+cumulus_centos_7:
   name: "CentOS 7"
   image_url: "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1809.qcow2"
   properties:
