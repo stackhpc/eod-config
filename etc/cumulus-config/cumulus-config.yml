@@ -24,13 +24,10 @@ cumulus_demo_project:
 # stackhpc.os-projects role.
 cumulus_resops_users:
   - name: hpcgodd1
-    password: !vault |
-      $ANSIBLE_VAULT;1.1;AES256
-      37386366333266356464663865316538653361313830633036626436613432636361386463373139
-      3530303436393137613263656530333465313861316336330a623562323161326330383237303061
-      63663266383362336361666134313364653037623430363638363333346435366230613135623763
-      3063346333353831650a373138346633663663343638656163346533663735626133306438363066
-      6638
+    password: mark
+    roles: "{{ cumulus_admin_roles }}"
+  - name: johng
+    password: johng
     roles: "{{ cumulus_admin_roles }}"
 
 # List of roles to apply to admin users in the cumulus demo project.
@@ -64,15 +61,7 @@ cumulus_unlimited_quotas:
 # List of networks in the cumulus system. Format is as required by the
 # stackhpc.os-networks role.
 cumulus_networks:
-  - "{{ cumulus_network_external }}"
   - "{{ cumulus_network_internal }}"
-  - "{{ cumulus_network_inspection }}"
-  - "{{ cumulus_network_storage }}"
-  - "{{ cumulus_network_demo_vlan }}"
-  - "{{ cumulus_network_demo_vxlan }}"
-  - "{{ cumulus_network_demo_hs_vlan }}"
-  - "{{ cumulus_network_demo_provider }}"
-  - "{{ cumulus_network_infiniband }}"
 
 # cumulus external network name.
 cumulus_network_external_name: "external"
@@ -109,8 +98,8 @@ cumulus_network_internal:
   project: "admin"
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
-  provider_segmentation_id: 65
-  shared: false
+  provider_segmentation_id: 205
+  shared: true
   # Subnet configuration.
   subnets:
     - "{{ cumulus_subnet_internal }}"
@@ -119,10 +108,9 @@ cumulus_network_internal:
 cumulus_subnet_internal:
   name: "{{ cumulus_network_internal_name }}"
   project: "admin"
-  cidr: "10.65.0.0/16"
-  enable_dhcp: false
-  allocation_pool_start: "10.65.0.2"
-  allocation_pool_end: "10.65.0.4"
+  cidr: "10.205.0.0/16"
+  allocation_pool_start: "10.205.205.100"
+  allocation_pool_end: "10.205.205.199"
 
 # cumulus inspection network name.
 cumulus_network_inspection_name: "inspection-net"
@@ -292,11 +280,7 @@ cumulus_subnet_infiniband:
 
 # List of routers in the cumulus demo project. Format is as required by the
 # stackhpc.os-networks role.
-cumulus_routers:
-  - "{{ cumulus_router_provision }}"
-  - "{{ cumulus_router_cleaning }}"
-  - "{{ cumulus_router_inspection }}"
-  - "{{ cumulus_router_demo }}"
+cumulus_routers: []
 
 # cumulus bare metal provisioning router.
 cumulus_router_provision:
@@ -373,12 +357,8 @@ cumulus_security_groups: []
 # List of nova flavors in the cumulus demo project. Format is as required by the
 # stackhpc.os-flavors role.
 cumulus_flavors:
-  - "{{ cumulus_flavor_baremetal_A }}"
   - "{{ cumulus_flavor_m1_tiny }}"
   - "{{ cumulus_flavor_m1_small }}"
-  - "{{ cumulus_flavor_m1_medium }}"
-  - "{{ cumulus_flavor_m1_large }}"
-  - "{{ cumulus_flavor_m1_xlarge }}"
 
 # Bare metal compute node.
 cumulus_flavor_baremetal_A:
@@ -427,9 +407,22 @@ cumulus_flavor_m1_xlarge:
 # Software images for cumulus
 
 cumulus_images:
-  - "{{ cumulus_image_centos }}"
-  - "{{ cumulus_image_centos_ib }}"
-  - "{{ cumulus_image_centos_ohpc }}"
+  - "{{ cumulus_centos_7 }}"
+  - "{{ cumulus_fedora_atomic_27 }}"
+
+cumulus_fedora_atomic_27:
+  name: "FedoraAtomic27"
+  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
+  properties:
+    os_distro: "fedora-atomic"
+    os_version: "27"
+
+cumulus_fedora_atomic_27:
+  name: "CentOS 7"
+  image_url: "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1809.qcow2"
+  properties:
+    os_distro: "centos"
+    os_version: "7"
 
 # Latest CentOS image
 cumulus_image_centos:
