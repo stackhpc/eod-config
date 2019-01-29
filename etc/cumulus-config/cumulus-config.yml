@@ -100,6 +100,7 @@ cumulus_network_internal:
   provider_physical_network: "physnet1"
   provider_segmentation_id: 205
   shared: true
+  external: true
   # Subnet configuration.
   subnets:
     - "{{ cumulus_subnet_internal }}"
@@ -109,8 +110,13 @@ cumulus_subnet_internal:
   name: "{{ cumulus_network_internal_name }}"
   project: "admin"
   cidr: "10.205.0.0/16"
+  # Gateway is the seed node
+  gateway_ip: 10.205.1.0
   allocation_pool_start: "10.205.205.100"
   allocation_pool_end: "10.205.205.199"
+  dns_nameservers:
+    - 131.111.8.42
+    - 131.111.12.20
 
 # cumulus inspection network name.
 cumulus_network_inspection_name: "inspection-net"
@@ -339,17 +345,15 @@ cumulus_router_demo:
 # then, you can use the issue-34467 branch of the stackhpc ansible repo to
 # register groups (after uncommenting them):
 # https://github.com/stackhpc/ansible/tree/issue-34467.
-cumulus_security_groups: []
-  # Default security group for the cumulus demo project.
-  #- name: default
-  #  #project: "{{ cumulus_demo_project.name }}"
-  #  rules:
-  #    # Allow ICMP (for ping, etc.).
-  #    - protocol: icmp
-  #    # Allow SSH.
-  #    - protocol: tcp
-  #      port_range_min: 22
-  #      port_range_max: 22
+cumulus_security_groups:
+  - name: default
+    rules:
+      # Allow ICMP (for ping, etc.).
+      - protocol: icmp
+      # Allow SSH.
+      - protocol: tcp
+        port_range_min: 22
+        port_range_max: 22
 
 ###############################################################################
 # Configuration of nova flavors for cumulus.
@@ -376,13 +380,14 @@ cumulus_flavor_baremetal_A:
 cumulus_flavor_m1_tiny:
   name: "m1.tiny"
   ram: 512
-  disk: 1
+  disk: 10
   vcpus: 1
 
 cumulus_flavor_m1_small:
   name: "m1.small"
   ram: 2048
-  disk: 20
+  disk: 10
+  ephemeral: 20
   vcpus: 1
 
 cumulus_flavor_m1_medium:
