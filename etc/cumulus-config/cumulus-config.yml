@@ -61,6 +61,7 @@ cumulus_unlimited_quotas:
 # List of networks in the cumulus system. Format is as required by the
 # stackhpc.os-networks role.
 cumulus_networks:
+  - "{{ cumulus_network_external }}"
   - "{{ cumulus_network_internal }}"
 
 # cumulus external network name.
@@ -72,8 +73,8 @@ cumulus_network_external:
   project: "admin"
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
-  provider_segmentation_id: 60
-  shared: true
+  provider_segmentation_id: 215
+  shared: false
   external: true
   # Subnet configuration.
   subnets:
@@ -83,10 +84,13 @@ cumulus_network_external:
 cumulus_subnet_external:
   name: "{{ cumulus_network_external_name }}"
   project: "admin"
-  cidr: "10.60.0.0/16"
-  gateway_ip: "10.60.255.1"
-  allocation_pool_start: "10.60.2.0"
-  allocation_pool_end: "10.60.5.255"
+  cidr: "10.215.0.0/16"
+  gateway_ip: "10.215.1.0"
+  allocation_pool_start: "10.215.215.100"
+  allocation_pool_end: "10.215.215.199"
+  dns_nameservers:
+    - 131.111.8.42
+    - 131.111.12.20
   # TODO: Add host route to storage subnet.
 
 # cumulus internal network name.
