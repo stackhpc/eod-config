@@ -86,7 +86,7 @@ cumulus_subnet_external:
   name: "{{ cumulus_network_external_name }}"
   project: "admin"
   cidr: "10.215.0.0/16"
-  gateway_ip: "10.215.1.0"
+  gateway_ip: "10.215.0.2"
   allocation_pool_start: "10.215.215.100"
   allocation_pool_end: "10.215.215.199"
   dns_nameservers:
