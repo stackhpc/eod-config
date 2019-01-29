@@ -63,6 +63,7 @@ cumulus_unlimited_quotas:
 cumulus_networks:
   - "{{ cumulus_network_external }}"
   - "{{ cumulus_network_internal }}"
+  - "{{ cumulus_network_demo_vxlan }}"
 
 # cumulus external network name.
 cumulus_network_external_name: "external"
@@ -214,6 +215,8 @@ cumulus_subnet_demo_vxlan:
   gateway_ip: "10.1.0.1"
   allocation_pool_start: "10.1.0.2"
   allocation_pool_end: "10.1.0.254"
+  dns_nameservers:
+    - 8.8.8.8
 
 # cumulus demo provider VLAN network name.
 cumulus_network_demo_provider_name: "demo-provider"
@@ -290,7 +293,8 @@ cumulus_subnet_infiniband:
 
 # List of routers in the cumulus demo project. Format is as required by the
 # stackhpc.os-networks role.
-cumulus_routers: []
+cumulus_routers:
+  - "{{ cumulus_router_demo }}"
 
 # cumulus bare metal provisioning router.
 cumulus_router_provision:
@@ -333,10 +337,10 @@ cumulus_router_demo:
   - name: "{{ cumulus_demo_project.name }}"
     project: "{{ cumulus_demo_project.name }}"
     interfaces:
-      - "{{ cumulus_network_demo_vlan_name }}"
+      #- "{{ cumulus_network_demo_vlan_name }}"
       - "{{ cumulus_network_demo_vxlan_name }}"
-      - "{{ cumulus_network_demo_hs_vlan_name }}"
-      - "{{ cumulus_network_demo_provider_name }}"
+      #- "{{ cumulus_network_demo_hs_vlan_name }}"
+      #- "{{ cumulus_network_demo_provider_name }}"
     network: "{{ cumulus_network_external_name }}"
 
 # List of security groups in the cumulus demo project. Format is as required by the
