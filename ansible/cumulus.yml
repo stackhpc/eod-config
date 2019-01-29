@@ -4,3 +4,4 @@
 - include: cumulus-networks.yml
 - include: cumulus-flavors.yml
 - include: cumulus-images.yml
+- include: cumulus-container-clusters.yml

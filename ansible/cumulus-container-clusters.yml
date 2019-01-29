@@ -1,0 +1,11 @@
+---
+- name: Ensure Performance Prototype Platform (P-cubed) container clusters exist
+  hosts: localhost
+  tags:
+    - container-clusters
+  roles:
+    - role: stackhpc.os-container-clusters
+      os_container_clusters_venv: "{{ cumulus_venv }}"
+      os_container_clusters_auth_type: "{{ openstack_auth_type }}"
+      os_container_clusters_auth: "{{ openstack_auth }}"
+      os_container_clusters_templates: "{{ cumulus_container_clusters_templates }}"

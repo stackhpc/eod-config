@@ -3,3 +3,6 @@
 - src: stackhpc.os-networks
 - src: stackhpc.os-projects
 - src: stackhpc.os-images
+- name: stackhpc.os-container-clusters
+  src: https://github.com/stackhpc/ansible-role-os-container-clusters
+  version: origin/flags

@@ -511,3 +511,37 @@ cumulus_systemd_modules_load_ipoib: |
   ib_ipoib
   # Load the Mellanox IB driver.
   mlx4_ib
+
+cumulus_container_clusters_templates:
+  - "{{ culumus_container_clusters_template_swarm_fedora_atomic_27 }}"
+  - "{{ p3_container_clusters_template_k8s_fedora_atomic_27 }}"
+
+cumulus_container_clusters_template_swarm_fedora_atomic_27:
+  flags:
+    - "floating-ip-disabled"
+  external_network: "{{ p3_network_ilab_name }}"
+  fixed_network: "{{ p3_network_ilab_name }}"
+  fixed_subnet: "{{ p3_network_ilab_name }}"
+  master_flavor: "{{ p3_flavor_compute_A.name }}"
+  flavor: "{{ p3_flavor_compute_A.name }}"
+  image: "FedoraAtomic27"
+  name: "swarm-fedora-atomic-27"
+  coe: "swarm-mode"
+  network_driver: "docker"
+  docker_storage_driver: "overlay2"
+
+cumulus_container_clusters_template_k8s_fedora_atomic_27:
+  flags:
+    - "floating-ip-disabled"
+  labels: "cgroup_driver=cgroupfs"
+  external_network: "{{ p3_network_ilab_name }}"
+  fixed_network: "{{ p3_network_ilab_name }}"
+  fixed_subnet: "{{ p3_network_ilab_name }}"
+  master_flavor: "{{ p3_flavor_compute_A.name }}"
+  flavor: "{{ p3_flavor_compute_A.name }}"
+  image: "FedoraAtomic27"
+  name: "k8s-fedora-atomic-27"
+  coe: "kubernetes"
+  network_driver: "flannel"
+  docker_storage_driver: "overlay2"
+
