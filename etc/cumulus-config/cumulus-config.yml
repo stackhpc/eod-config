@@ -519,9 +519,9 @@ cumulus_container_clusters_templates:
 cumulus_container_clusters_template_swarm_fedora_atomic_27:
   flags:
     - "floating-ip-disabled"
-  external_network: "{{ cumulus_network_internal_name }}"
-  fixed_network: "{{ cumulus_network_internal_name }}"
-  fixed_subnet: "{{ cumulus_network_internal_name }}"
+  external_network: "{{ cumulus_network_external_name }}"
+  fixed_network: "{{ cumulus_network_external_name }}"
+  fixed_subnet: "{{ cumulus_network_external_name }}"
   master_flavor: "{{ cumulus_flavor_m1_small.name }}"
   flavor: "{{ cumulus_flavor_m1_small.name }}"
   image: "FedoraAtomic27"
@@ -529,14 +529,15 @@ cumulus_container_clusters_template_swarm_fedora_atomic_27:
   coe: "swarm-mode"
   network_driver: "docker"
   docker_storage_driver: "overlay2"
+  server_type: "vm"
 
 cumulus_container_clusters_template_k8s_fedora_atomic_27:
   flags:
     - "floating-ip-disabled"
   labels: "cgroup_driver=cgroupfs"
-  external_network: "{{ cumulus_network_internal_name }}"
-  fixed_network: "{{ cumulus_network_internal_name }}"
-  fixed_subnet: "{{ cumulus_network_internal_name }}"
+  external_network: "{{ cumulus_network_external_name }}"
+  fixed_network: "{{ cumulus_network_external_name }}"
+  fixed_subnet: "{{ cumulus_network_external_name }}"
   master_flavor: "{{ cumulus_flavor_m1_small.name }}"
   flavor: "{{ cumulus_flavor_m1_small.name }}"
   image: "FedoraAtomic27"
@@ -544,4 +545,4 @@ cumulus_container_clusters_template_k8s_fedora_atomic_27:
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
-
+  server_type: "vm"
