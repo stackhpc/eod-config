@@ -473,14 +473,14 @@ cumulus_ubuntu_16_04:
 
 cumulus_ubuntu_18_04:
   name: "Ubuntu Bionic 18.04"
-  image_url: "http://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-arm64.img"
+  image_url: "http://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
   properties:
     os_distro: "ubuntu"
     os_version: "18.04"
 
 cumulus_ubuntu_18_10:
   name: "Ubuntu Cosmic 18.10"
-  image_url: "http://cloud-images.ubuntu.com/cosmic/current/cosmic-server-cloudimg-arm64.img"
+  image_url: "http://cloud-images.ubuntu.com/cosmic/current/cosmic-server-cloudimg-amd64.img"
   properties:
     os_distro: "ubuntu"
     os_version: "18.10"
