@@ -425,7 +425,8 @@ cumulus_images:
 
 cumulus_fedora_atomic_27:
   name: "FedoraAtomic27"
-  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
+  #image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
+  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180419.0/CloudImages/x86_64/images/Fedora-Atomic-27-20180419.0.x86_64.qcow2"
   properties:
     os_distro: "fedora-atomic"
     os_version: "27"
@@ -534,7 +535,7 @@ cumulus_container_clusters_template_swarm_fedora_atomic_27:
 cumulus_container_clusters_template_k8s_fedora_atomic_27:
   flags:
     - "floating-ip-disabled"
-  labels: "cgroup_driver=cgroupfs"
+  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true"
   external_network: "{{ cumulus_network_external_name }}"
   fixed_network: "{{ cumulus_network_external_name }}"
   fixed_subnet: "{{ cumulus_network_external_name }}"
