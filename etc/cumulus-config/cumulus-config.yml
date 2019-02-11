@@ -369,52 +369,50 @@ cumulus_security_groups:
 # List of nova flavors in the cumulus demo project. Format is as required by the
 # stackhpc.os-flavors role.
 cumulus_flavors:
-  - "{{ cumulus_flavor_m1_tiny }}"
-  - "{{ cumulus_flavor_m1_small }}"
+  - "{{ cumulus_flavor_general_xlarge }}"
+  - "{{ cumulus_flavor_general_large }}"
+  - "{{ cumulus_flavor_general_medium }}"
+  - "{{ cumulus_flavor_general_small }}"
+
+cumulus_flavor_general_xlarge:
+  name: "general.v1.xlarge"
+  vcpus: 60
+  ram: 184320
+  disk: 20
+  ephemeral: 300
+
+cumulus_flavor_general_large:
+  name: "general.v1.large"
+  vcpus: 30
+  ram: 92160
+  disk: 20
+  ephemeral: 150
+
+cumulus_flavor_general_medium:
+  name: "general.v1.medium"
+  vcpus: 14
+  ram: 46080
+  disk: 20
+  ephemeral: 60
+
+cumulus_flavor_general_small:
+  name: "general.v1.small"
+  vcpus: 6
+  ram: 22538
+  disk: 20
+  ephemeral: 0
 
 # Bare metal compute node.
-cumulus_flavor_baremetal_A:
-  name: "baremetal-A"
-  ram: 65536
-  disk: 0
+cumulus_flavor_baremetal_general:
+  name: "bm.general"
+  ram: 196608
+  disk: 480
   vcpus: 64
   extra_specs:
     "resources:CUSTOM_BAREMETAL_A": 1
     "resources:VCPU": 0
     "resources:MEMORY_MB": 0
     "resources:DISK_GB": 0
-
-# Virtual machine flavors.
-cumulus_flavor_m1_tiny:
-  name: "m1.tiny"
-  ram: 512
-  disk: 10
-  vcpus: 1
-
-cumulus_flavor_m1_small:
-  name: "m1.small"
-  ram: 2048
-  disk: 10
-  ephemeral: 20
-  vcpus: 1
-
-cumulus_flavor_m1_medium:
-  name: "m1.medium"
-  ram: 4096
-  disk: 40
-  vcpus: 2
-
-cumulus_flavor_m1_large:
-  name: "m1.large"
-  ram: 8192
-  disk: 40
-  vcpus: 4
-
-cumulus_flavor_m1_xlarge:
-  name: "m1.xlarge"
-  ram: 16384
-  disk: 100
-  vcpus: 8
 
 ###############################################################################
 # Software images for cumulus
