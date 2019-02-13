@@ -431,6 +431,7 @@ cumulus_fedora_atomic_27:
   #image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
   image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180419.0/CloudImages/x86_64/images/Fedora-Atomic-27-20180419.0.x86_64.qcow2"
   properties:
+    os_type: "linux"
     os_distro: "fedora-atomic"
     os_version: "27"
 
@@ -438,56 +439,64 @@ cumulus_centos_7:
   name: "CentOS 7"
   image_url: "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2"
   properties:
-    os_distro: "centos"
+    os_type: "linux"
+    os_distro: "centos7.0"
     os_version: "7"
 
 cumulus_cirros:
   name: "Cirros"
   image_url: "http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img"
   properties:
-    os_distro: "cirros"
-    os_version: "0.4"
+    os_type: "linux"
+    os_distro: "cirros0.4.0"
+    os_version: "0.4.0"
 
 cumulus_debian_9:
   name: "Debian Stretch"
   image_url: "http://cdimage.debian.org/cdimage/openstack/current/debian-9.7.0-openstack-amd64.qcow2"
   properties:
-    os_distro: "debian"
+    os_type: "linux"
+    os_distro: "debian9"
     os_version: "9.7"
 
 cumulus_fedora_29:
   name: "Fedora 29"
   image_url: "https://download.fedoraproject.org/pub/fedora/linux/releases/29/Cloud/x86_64/images/Fedora-Cloud-Base-29-1.2.x86_64.qcow2"
   properties:
-    os_distro: "fedora"
+    os_type: "linux"
+    os_distro: "fedora29"
     os_version: "29"
 
 cumulus_ubuntu_16_04:
   name: "Ubuntu Xenial 16.04"
   image_url: "http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img"
   properties:
-    os_distro: "ubuntu"
+    os_type: "linux"
+    os_distro: "ubuntu16.04"
     os_version: "16.04"
 
 cumulus_ubuntu_18_04:
   name: "Ubuntu Bionic 18.04"
   image_url: "http://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
   properties:
-    os_distro: "ubuntu"
+    os_type: "linux"
+    os_distro: "ubuntu18.04"
     os_version: "18.04"
 
 cumulus_ubuntu_18_10:
   name: "Ubuntu Cosmic 18.10"
   image_url: "http://cloud-images.ubuntu.com/cosmic/current/cosmic-server-cloudimg-amd64.img"
   properties:
-    os_distro: "ubuntu"
+    os_type: "linux"
+    os_distro: "ubuntu18.10"
     os_version: "18.10"
 
 cumulus_openSUSE_leap_15:
   name: "openSUSE Leap 15.0"
   image_url: "https://download.opensuse.org/distribution/leap/15.0/jeos/openSUSE-Leap-15.0-JeOS.x86_64-15.0.1-OpenStack-Cloud-Current.qcow2"
   properties:
-    os_distro: "openSUSE"
+    os_type: "linux"
+    os_distro: "opensuse15.0"
     os_version: "15.0"
 
 # Latest CentOS image
