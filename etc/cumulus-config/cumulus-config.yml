@@ -376,7 +376,7 @@ cumulus_flavors:
 
 cumulus_flavor_general_xlarge:
   name: "general.v1.xlarge"
-  vcpus: 60
+  vcpus: 56
   ram: 184320
   disk: 20
   ephemeral: 300
@@ -385,7 +385,7 @@ cumulus_flavor_general_xlarge:
 
 cumulus_flavor_general_large:
   name: "general.v1.large"
-  vcpus: 30
+  vcpus: 28
   ram: 92160
   disk: 20
   ephemeral: 150
