@@ -404,7 +404,7 @@ cumulus_flavor_general_medium:
 cumulus_flavor_general_small:
   name: "general.v1.small"
   vcpus: 6
-  ram: 22538
+  ram: 22528
   disk: 20
   ephemeral: 0
   extra_specs:
