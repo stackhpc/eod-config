@@ -354,11 +354,8 @@ cumulus_router_demo:
 # register groups (after uncommenting them):
 # https://github.com/stackhpc/ansible/tree/issue-34467.
 cumulus_security_groups:
-  - name: default
+  - name: allow-ssh
     rules:
-      # Allow ICMP (for ping, etc.).
-      - protocol: icmp
-      # Allow SSH.
       - protocol: tcp
         port_range_min: 22
         port_range_max: 22
