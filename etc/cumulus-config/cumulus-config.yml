@@ -119,7 +119,7 @@ cumulus_network_internal:
   provider_physical_network: "physnet1"
   provider_segmentation_id: 205
   shared: true
-  external: true
+  external: false
   # Subnet configuration.
   subnets:
     - "{{ cumulus_subnet_internal }}"
