@@ -309,6 +309,14 @@ cumulus_subnet_infiniband:
 # stackhpc.os-networks role.
 cumulus_routers:
   - "{{ cumulus_router_demo }}"
+  - "{{ cumulus_router_internal }}"
+
+cumulus_router_internal:
+  - name: "internal"
+    project: "admin"
+    interfaces:
+      - "{{ cumulus_network_internal_name }}"
+    network: "{{ cumulus_network_external_name }}"
 
 # cumulus bare metal provisioning router.
 cumulus_router_provision:
