@@ -9,6 +9,7 @@
 # role.
 cumulus_projects:
   - "{{ cumulus_demo_project }}"
+  - "{{ cumulus_euclid_project }}"
 
 # Definition of the cumulus demo project. Format is as required by the
 # stackhpc.os-projects role.
@@ -23,11 +24,17 @@ cumulus_demo_project:
 # List of users in the cumulus ResOps team. Format is as required by the
 # stackhpc.os-projects role.
 cumulus_resops_users:
-  - name: hpcgodd1
-    password: mark
+  - name: johng-admin
+    password: johng
     roles: "{{ cumulus_admin_roles }}"
   - name: johng
     password: johng
+    roles: "{{ cumulus_user_roles }}"
+  - name: stig-admin
+    password: stig
+    roles: "{{ cumulus_admin_roles }}"
+  - name: stig
+    password: stig
     roles: "{{ cumulus_admin_roles }}"
 
 # List of roles to apply to admin users in the cumulus demo project.
@@ -54,6 +61,13 @@ cumulus_unlimited_quotas:
   ram: -1
   secgroup_rules: -1
   secgroups: -1
+
+cumulus_euclid_project:
+  name: iris-euclid
+  description: IRIS@Cambridge Euclid
+  project_domain: default
+  user_domain: default
+  users: "{{ cumulus_resops_users }}"
 
 ###############################################################################
 # Configuration of networks, subnets and routers for cumulus.
