@@ -429,6 +429,7 @@ cumulus_flavor_baremetal_general:
 cumulus_images:
   - "{{ cumulus_centos_7 }}"
   - "{{ cumulus_fedora_atomic_27 }}"
+  - "{{ cumulus_fedora_atomic_29 }}"
   - "{{ cumulus_cirros }}"
   - "{{ cumulus_debian_9 }}"
   - "{{ cumulus_fedora_29 }}"
@@ -437,8 +438,15 @@ cumulus_images:
 
 cumulus_fedora_atomic_27:
   name: "FedoraAtomic27"
-  #image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180326.1/CloudImages/x86_64/images/Fedora-Atomic-27-20180326.1.x86_64.qcow2"
   image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180419.0/CloudImages/x86_64/images/Fedora-Atomic-27-20180419.0.x86_64.qcow2"
+  properties:
+    os_type: "linux"
+    os_distro: "fedora-atomic"
+    os_version: "27"
+
+cumulus_fedora_atomic_29:
+  name: "FedoraAtomic29"
+  image_url: "https://ftp.icm.edu.pl/pub/Linux/dist/fedora-alt/atomic/stable/Fedora-29-updates-20190121.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20190121.0.x86_64.qcow2"
   properties:
     os_type: "linux"
     os_distro: "fedora-atomic"
@@ -586,7 +594,7 @@ cumulus_systemd_modules_load_ipoib: |
 cumulus_container_clusters_templates:
   - "{{ cumulus_container_clusters_template_swarm_fedora_atomic_27 }}"
   - "{{ cumulus_container_clusters_template_k8s_fedora_atomic_27 }}"
-  - "{{ cumulus_container_clusters_template_k8s_fedora_atomic_27_floating }}"
+  - "{{ cumulus_container_clusters_template_k8s_fedora_atomic_29 }}"
 
 cumulus_container_clusters_template_swarm_fedora_atomic_27:
   flags:
@@ -608,7 +616,7 @@ cumulus_container_clusters_template_k8s_fedora_atomic_27:
   flags:
     - "floating-ip-disabled"
     - "public"
-  labels: "cgroup_driver=cgroupfs"
+  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true"
   external_network: "{{ cumulus_network_external_name }}"
   fixed_network: "{{ cumulus_network_external_name }}"
   fixed_subnet: "{{ cumulus_network_external_name }}"
@@ -621,14 +629,18 @@ cumulus_container_clusters_template_k8s_fedora_atomic_27:
   docker_storage_driver: "overlay2"
   server_type: "vm"
 
-cumulus_container_clusters_template_k8s_fedora_atomic_27_floating:
+cumulus_container_clusters_template_k8s_fedora_atomic_29:
   flags:
+    - "floating-ip-disabled"
     - "public"
-  external_network: "{{ cumulus_network_external_name }}"
+  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.13.2"
+  external_network: "{{ cumulus_network_internal_name }}"
+  fixed_network: "{{ cumulus_network_internal_name }}"
+  fixed_subnet: "{{ cumulus_network_internal_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
-  image: "FedoraAtomic27"
-  name: "k8s-fedora-atomic-27-float"
+  image: "FedoraAtomic29"
+  name: "k8s-fedora-atomic-29-internal"
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
