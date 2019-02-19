@@ -117,7 +117,7 @@ cumulus_network_internal:
   project: "admin"
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
-  provider_segmentation_id: 205
+  provider_segmentation_id: 218
   shared: true
   external: false
   # Subnet configuration.
@@ -128,11 +128,10 @@ cumulus_network_internal:
 cumulus_subnet_internal:
   name: "{{ cumulus_network_internal_name }}"
   project: "admin"
-  cidr: "10.205.0.0/16"
-  # Gateway is the seed node
-  gateway_ip: 10.205.1.0
-  allocation_pool_start: "10.205.205.100"
-  allocation_pool_end: "10.205.205.199"
+  cidr: "10.218.0.0/16"
+  gateway_ip: "10.218.0.1"
+  allocation_pool_start: "10.218.1.1"
+  allocation_pool_end: "10.218.10.199"
   dns_nameservers:
     - 131.111.8.42
     - 131.111.12.20
@@ -615,7 +614,7 @@ cumulus_systemd_modules_load_ipoib: |
 
 cumulus_container_clusters_templates:
   - "{{ cumulus_container_clusters_template_swarm_fedora_atomic_27 }}"
-  - "{{ cumulus_container_clusters_template_k8s_fedora_atomic_27 }}"
+  #- "{{ cumulus_container_clusters_template_k8s_fedora_atomic_27 }}"
   - "{{ cumulus_container_clusters_template_k8s_fedora_atomic_29 }}"
 
 cumulus_container_clusters_template_swarm_fedora_atomic_27:
@@ -662,7 +661,7 @@ cumulus_container_clusters_template_k8s_fedora_atomic_29:
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic29"
-  name: "k8s-fedora-atomic-29-internal"
+  name: "k8s-fedora-atomic-29"
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
