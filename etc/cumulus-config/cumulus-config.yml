@@ -449,7 +449,6 @@ cumulus_flavor_baremetal_general:
 
 cumulus_images:
   - "{{ cumulus_centos_7 }}"
-  - "{{ cumulus_fedora_atomic_27 }}"
   - "{{ cumulus_fedora_atomic_29 }}"
   - "{{ cumulus_cirros }}"
   - "{{ cumulus_debian_9 }}"
