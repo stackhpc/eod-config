@@ -398,9 +398,9 @@ cumulus_flavor_general_xlarge:
   ram: 184320
   disk: 20
   ephemeral: 300
-  extra_specs:
-    "hw:mem_page_size": "1GB"
-    "hw:numa_nodes": "2"
+#  extra_specs:
+#    "hw:mem_page_size": "1GB"
+#    "hw:numa_nodes": "2"
 
 cumulus_flavor_general_large:
   name: "general.v1.large"
@@ -408,9 +408,9 @@ cumulus_flavor_general_large:
   ram: 92160
   disk: 20
   ephemeral: 150
-  extra_specs:
-    "hw:mem_page_size": "1GB"
-    "hw:numa_nodes": "1"
+#  extra_specs:
+#    "hw:mem_page_size": "1GB"
+#    "hw:numa_nodes": "1"
 
 cumulus_flavor_general_medium:
   name: "general.v1.medium"
@@ -418,9 +418,9 @@ cumulus_flavor_general_medium:
   ram: 46080
   disk: 20
   ephemeral: 60
-  extra_specs:
-    "hw:mem_page_size": "1GB"
-    "hw:numa_nodes": "1"
+#  extra_specs:
+#    "hw:mem_page_size": "1GB"
+#    "hw:numa_nodes": "1"
 
 cumulus_flavor_general_small:
   name: "general.v1.small"
@@ -428,9 +428,9 @@ cumulus_flavor_general_small:
   ram: 22528
   disk: 20
   ephemeral: 0
-  extra_specs:
-    "hw:mem_page_size": "1GB"
-    "hw:numa_nodes": "1"
+#  extra_specs:
+#    "hw:mem_page_size": "1GB"
+#    "hw:numa_nodes": "1"
 
 # Bare metal compute node.
 cumulus_flavor_baremetal_general:
