@@ -653,14 +653,14 @@ cumulus_container_clusters_template_k8s_fedora_atomic_27:
 cumulus_container_clusters_template_k8s_fedora_atomic_29:
   flags:
     - "public"
-  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.13.2"
+  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.13.4,cloud_provider_tag=1.13.1"
   external_network: "{{ cumulus_network_external_name }}"
-  fixed_network: "{{ cumulus_network_internal_name }}"
-  fixed_subnet: "{{ cumulus_network_internal_name }}"
+  #fixed_network: "{{ cumulus_network_internal_name }}"
+  #fixed_subnet: "{{ cumulus_network_internal_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic29"
-  name: "k8s-fedora-atomic-29"
+  name: "kubernetes-13.4"
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
