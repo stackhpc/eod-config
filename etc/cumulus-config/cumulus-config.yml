@@ -75,16 +75,42 @@ cumulus_euclid_project:
 # List of networks in the cumulus system. Format is as required by the
 # stackhpc.os-networks role.
 cumulus_networks:
-  - "{{ cumulus_network_external }}"
+  - "{{ cumulus_network_internet }}"
+  - "{{ cumulus_network_ilab }}"
   - "{{ cumulus_network_internal }}"
   - "{{ cumulus_network_demo_vxlan }}"
 
+cumulus_network_internet_name: "internet"
+
+cumulus_network_internet:
+  name: "{{ cumulus_network_internet_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 111
+  shared: false
+  external: true
+  subnets:
+    - "{{ cumulus_subnet_internet }}"
+
+# cumulus external subnet.
+cumulus_subnet_internet:
+  name: "{{ cumulus_network_internet_name }}"
+  project: "admin"
+  cidr: "128.232.224.0/23"
+  gateway_ip: "128.232.225.254"
+  allocation_pool_start: "128.232.224.69"
+  allocation_pool_end: "128.232.224.79"
+  dns_nameservers:
+    - 131.111.8.42
+    - 131.111.12.20
+
 # cumulus external network name.
-cumulus_network_external_name: "external"
+cumulus_network_ilab_name: "ilab-215"
 
 # cumulus external network.
-cumulus_network_external:
-  name: "{{ cumulus_network_external_name }}"
+cumulus_network_ilab:
+  name: "{{ cumulus_network_ilab_name }}"
   project: "admin"
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
@@ -97,7 +123,7 @@ cumulus_network_external:
 
 # cumulus external subnet.
 cumulus_subnet_external:
-  name: "{{ cumulus_network_external_name }}"
+  name: "{{ cumulus_network_ilab_name }}"
   project: "admin"
   cidr: "10.215.0.0/16"
   gateway_ip: "10.215.0.2"
@@ -307,15 +333,15 @@ cumulus_subnet_infiniband:
 # List of routers in the cumulus demo project. Format is as required by the
 # stackhpc.os-networks role.
 cumulus_routers:
+  - "{{ cumulus_router_internet }}"
   - "{{ cumulus_router_demo }}"
-  - "{{ cumulus_router_internal }}"
 
-cumulus_router_internal:
-  - name: "internal"
+cumulus_router_internet:
+  - name: "internal-to-internet"
     project: "admin"
     interfaces:
       - "{{ cumulus_network_internal_name }}"
-    network: "{{ cumulus_network_external_name }}"
+    network: "{{ cumulus_network_internet_name }}"
 
 # cumulus bare metal provisioning router.
 cumulus_router_provision:
@@ -362,7 +388,7 @@ cumulus_router_demo:
       - "{{ cumulus_network_demo_vxlan_name }}"
       #- "{{ cumulus_network_demo_hs_vlan_name }}"
       #- "{{ cumulus_network_demo_provider_name }}"
-    network: "{{ cumulus_network_external_name }}"
+    network: "{{ cumulus_network_ilab_name }}"
 
 # List of security groups in the cumulus demo project. Format is as required by the
 # stackhpc.os-networks role.
@@ -605,9 +631,7 @@ cumulus_container_clusters_templates:
 cumulus_container_clusters_template_swarm_fedora_atomic_27:
   flags:
     - "public"
-  external_network: "{{ cumulus_network_external_name }}"
-  #fixed_network: "{{ cumulus_network_external_name }}"
-  #fixed_subnet: "{{ cumulus_network_external_name }}"
+  external_network: "{{ cumulus_network_ilab_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic29-20190219"
@@ -622,9 +646,9 @@ cumulus_container_clusters_template_k8s_fedora_atomic_27:
     - "floating-ip-disabled"
     - "public"
   labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true"
-  external_network: "{{ cumulus_network_external_name }}"
-  fixed_network: "{{ cumulus_network_external_name }}"
-  fixed_subnet: "{{ cumulus_network_external_name }}"
+  external_network: "{{ cumulus_network_ilab_name }}"
+  fixed_network: "{{ cumulus_network_ilab_name }}"
+  fixed_subnet: "{{ cumulus_network_ilab_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic27"
@@ -638,9 +662,7 @@ cumulus_container_clusters_template_k8s_fedora_atomic_29:
   flags:
     - "public"
   labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.13.4,cloud_provider_tag=1.13.1"
-  external_network: "{{ cumulus_network_external_name }}"
-  #fixed_network: "{{ cumulus_network_internal_name }}"
-  #fixed_subnet: "{{ cumulus_network_internal_name }}"
+  external_network: "{{ cumulus_network_ilab_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic29-20190219"
