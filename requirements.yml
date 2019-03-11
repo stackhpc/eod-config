@@ -4,3 +4,4 @@
 - src: stackhpc.os-projects
 - src: stackhpc.os-images
 - src: stackhpc.os-container-clusters
+- src: stackhpc.os-openstackclient
