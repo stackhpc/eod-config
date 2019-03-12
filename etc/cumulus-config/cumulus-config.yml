@@ -10,6 +10,7 @@
 cumulus_projects:
   - "{{ cumulus_demo_project }}"
   - "{{ cumulus_euclid_project }}"
+  - "{{ cumulus_tempest_project }}"
 
 # Definition of the cumulus demo project. Format is as required by the
 # stackhpc.os-projects role.
@@ -19,6 +20,26 @@ cumulus_demo_project:
   project_domain: default
   user_domain: default
   users: "{{ cumulus_resops_users }}"
+  quotas: "{{ cumulus_unlimited_quotas }}"
+
+# Definition of the cumulus tempest project. Format is as required by the
+# stackhpc.os-projects role.
+cumulus_tempest_project:
+  name: tempest
+  description: Used for running tempest test suites
+  project_domain: default
+  user_domain: default
+  users:
+    - name: tempest
+      password: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        35363833646639633139383033643566366563646639326139643331393863323563336236383336
+        3737643662666638316230663731326635643762623436310a326264623063646537653135663565
+        61356666393939366564646663626331343263643433663864656365376430376435646237623939
+        3937633836613266350a303766663064396162626363376437343231636437336466353062363131
+        38613366396631373764316166613135616637373537636538343931303436666438656539613665
+        3938376661303265373930386530313033656231363638353435
+      roles: "{{ cumulus_user_roles }}"
   quotas: "{{ cumulus_unlimited_quotas }}"
 
 # List of users in the cumulus ResOps team. Format is as required by the
