@@ -156,7 +156,7 @@ cumulus_subnet_external:
   # TODO: Add host route to storage subnet.
 
 # cumulus internal network name.
-cumulus_network_internal_name: "internal"
+cumulus_network_internal_name: "cumulus-internal"
 
 # cumulus internal network.
 cumulus_network_internal:
