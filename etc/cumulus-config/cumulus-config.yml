@@ -11,6 +11,7 @@ cumulus_projects:
   - "{{ cumulus_demo_project }}"
   - "{{ cumulus_euclid_project }}"
   - "{{ cumulus_tempest_project }}"
+  - "{{ cumulus_services_project }}"
 
 # Definition of the cumulus demo project. Format is as required by the
 # stackhpc.os-projects role.
@@ -40,6 +41,16 @@ cumulus_tempest_project:
         38613366396631373764316166613135616637373537636538343931303436666438656539613665
         3938376661303265373930386530313033656231363638353435
       roles: "{{ cumulus_user_roles }}"
+  quotas: "{{ cumulus_unlimited_quotas }}"
+
+# Definition of the cumulus service project. Format is as required by the
+# stackhpc.os-projects role.
+cumulus_services_project:
+  name: services
+  description: services e.g refstack web-app 
+  project_domain: default
+  user_domain: default
+  users: "{{ cumulus_resops_users }}"
   quotas: "{{ cumulus_unlimited_quotas }}"
 
 # List of users in the cumulus ResOps team. Format is as required by the
@@ -427,6 +438,24 @@ cumulus_security_groups:
       - protocol: tcp
         port_range_min: 22
         port_range_max: 22
+  - name: default
+    rules:
+      - protocol: tcp
+        port_range_min: 22
+        port_range_max: 22
+    project: services
+  - name: allow-https
+    rules:
+      - protocol: tcp
+        port_range_min: 443
+        port_range_max: 443
+    project: services
+  - name: allow-http
+    rules:
+      - protocol: tcp
+        port_range_min: 80
+        port_range_max: 80
+    project: services
 
 ###############################################################################
 # Configuration of nova flavors for cumulus.
