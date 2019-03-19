@@ -183,6 +183,9 @@ cumulus_subnet_internal:
   dns_nameservers:
     - 131.111.8.42
     - 131.111.12.20
+  host_routes:
+    - destination: "{{ cumulus_subnet_external.cidr }}"
+      nexthop: 10.218.0.2
 
 # cumulus inspection network name.
 cumulus_network_inspection_name: "inspection-net"
@@ -357,6 +360,7 @@ cumulus_subnet_infiniband:
 cumulus_routers:
   - "{{ cumulus_router_internet }}"
   - "{{ cumulus_router_demo }}"
+  - "{{ cumulus_router_internal_to_ilab }}"
 
 cumulus_router_internet:
   - name: "internal-to-internet"
@@ -410,6 +414,16 @@ cumulus_router_demo:
       - "{{ cumulus_network_demo_vxlan_name }}"
       #- "{{ cumulus_network_demo_hs_vlan_name }}"
       #- "{{ cumulus_network_demo_provider_name }}"
+    network: "{{ cumulus_network_ilab_name }}"
+
+# Connects the internal network to ilab
+cumulus_router_internal_to_ilab:
+  - name: internal-to-ilab
+    project: admin
+    interfaces:
+      - net: "{{ cumulus_network_internal_name }}"
+        subnet: "{{ cumulus_network_internal_name }}"
+        portip: "10.218.0.2"
     network: "{{ cumulus_network_ilab_name }}"
 
 # List of security groups in the cumulus demo project. Format is as required by the
