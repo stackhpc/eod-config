@@ -660,6 +660,7 @@ cumulus_flavors:
   - "{{ cumulus_flavor_general_large }}"
   - "{{ cumulus_flavor_general_medium }}"
   - "{{ cumulus_flavor_general_small }}"
+  - "{{ cumulus_flavor_general_tiny }}"
 
 cumulus_flavor_general_xlarge:
   name: "general.v1.xlarge"
