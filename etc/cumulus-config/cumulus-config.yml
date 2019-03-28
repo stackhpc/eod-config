@@ -542,6 +542,7 @@ cumulus_flavors:
   - "{{ cumulus_flavor_general_large }}"
   - "{{ cumulus_flavor_general_medium }}"
   - "{{ cumulus_flavor_general_small }}"
+  - "{{ cumulus_flavor_general_tiny }}"
 
 cumulus_flavor_general_xlarge:
   name: "general.v1.xlarge"
@@ -582,6 +583,13 @@ cumulus_flavor_general_small:
 #  extra_specs:
 #    "hw:mem_page_size": "1GB"
 #    "hw:numa_nodes": "1"
+
+cumulus_flavor_general_tiny:
+  name: "general.v1.tiny"
+  vcpus: 2
+  ram: 6144
+  disk: 5
+  ephemeral: 0
 
 # Bare metal compute node.
 cumulus_flavor_baremetal_general:
