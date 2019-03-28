@@ -152,7 +152,7 @@ cumulus_user_roles:
 cumulus_default_quotas:
   instances: 20
   cores: 200
-  ram: 20000
+  ram: 2048000
   volumes: 20
   networks: 20
   ports: 20
