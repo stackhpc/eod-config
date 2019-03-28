@@ -22,7 +22,15 @@ cumulus_demo_project:
   project_domain: default
   user_domain: default
   users: "{{ cumulus_resops_users }}"
-  quotas: "{{ cumulus_unlimited_quotas }}"
+  quotas: "{{ cumulus_default_quotas }}"
+
+cumulus_euclid_project:
+  name: iris-euclid
+  description: IRIS@Cambridge Euclid
+  project_domain: default
+  user_domain: default
+  users: "{{ cumulus_resops_users }}"
+  quotas: "{{ cumulus_default_quotas }}"
 
 # Definition of the cumulus service project. Format is as required by the
 # stackhpc.os-projects role.
@@ -32,7 +40,7 @@ cumulus_services_project:
   project_domain: default
   user_domain: default
   users: "{{ cumulus_resops_users }}"
-  quotas: "{{ cumulus_unlimited_quotas }}"
+  quotas: "{{ cumulus_default_quotas }}"
 
 # Definition of the cumulus tempest project. Format is as required by the
 # stackhpc.os-projects role.
@@ -52,7 +60,7 @@ cumulus_tempest_project:
         38613366396631373764316166613135616637373537636538343931303436666438656539613665
         3938376661303265373930386530313033656231363638353435
       roles: "{{ cumulus_user_roles }}"
-  quotas: "{{ cumulus_unlimited_quotas }}"
+  quotas: "{{ cumulus_default_quotas }}"
 
 # Definition of the cumulus tempest-alt project. Format is as required by the
 # stackhpc.os-projects role.
@@ -72,7 +80,7 @@ cumulus_tempest_alt_project:
         38613366396631373764316166613135616637373537636538343931303436666438656539613665
         3938376661303265373930386530313033656231363638353435
       roles: "{{ cumulus_user_roles }}"
-  quotas: "{{ cumulus_unlimited_quotas }}"
+  quotas: "{{ cumulus_default_quotas }}"
 
 # List of users in the cumulus ResOps team. Format is as required by the
 # stackhpc.os-projects role.
@@ -141,25 +149,17 @@ cumulus_user_roles:
   - monasca-read-only-user
 
 # Dict of quotas to set for projects with unlimited resource quotas
-cumulus_unlimited_quotas:
-  cores: -1
-  floating_ips: -1
-  injected_files: -1
-  injected_file_size: -1
-  instances: -1
-  key_pairs: -1
-  fixed_ips: -1
-  ram: -1
-  secgroup_rules: -1
-  secgroups: -1
-  volumes: -1
-
-cumulus_euclid_project:
-  name: iris-euclid
-  description: IRIS@Cambridge Euclid
-  project_domain: default
-  user_domain: default
-  users: "{{ cumulus_resops_users }}"
+cumulus_default_quotas:
+  instances: 20
+  cores: 200
+  ram: 20000
+  volumes: 20
+  networks: 20
+  ports: 20
+  routers: 3
+  floating_ips: 3
+  secgroup_rules: 100
+  secgroups: 10
 
 ###############################################################################
 # Configuration of networks, subnets and routers for cumulus.
