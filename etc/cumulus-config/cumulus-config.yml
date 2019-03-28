@@ -666,7 +666,7 @@ cumulus_flavor_general_xlarge:
   vcpus: 56
   ram: 184320
   disk: 20
-  ephemeral: 300
+  ephemeral: 340
 #  extra_specs:
 #    "hw:mem_page_size": "1GB"
 #    "hw:numa_nodes": "2"
@@ -676,7 +676,7 @@ cumulus_flavor_general_large:
   vcpus: 28
   ram: 92160
   disk: 20
-  ephemeral: 150
+  ephemeral: 160
 #  extra_specs:
 #    "hw:mem_page_size": "1GB"
 #    "hw:numa_nodes": "1"
@@ -700,6 +700,13 @@ cumulus_flavor_general_small:
 #  extra_specs:
 #    "hw:mem_page_size": "1GB"
 #    "hw:numa_nodes": "1"
+
+cumulus_flavor_general_tiny:
+  name: "general.v1.tiny"
+  vcpus: 2
+  ram: 6144
+  disk: 12
+  ephemeral: 0
 
 # Bare metal compute node.
 cumulus_flavor_baremetal_general:
