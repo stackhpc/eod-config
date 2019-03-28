@@ -484,6 +484,7 @@ cumulus_security_groups:
       - protocol: tcp
         port_range_min: 22
         port_range_max: 22
+    project: admin
   - name: default
     rules:
       - protocol: tcp
@@ -725,8 +726,7 @@ cumulus_container_clusters_templates:
   - "{{ cumulus_container_clusters_template_k8s_fedora_atomic_29 }}"
 
 cumulus_container_clusters_template_swarm_fedora_atomic_27:
-  flags:
-    - "public"
+  public:
   external_network: "{{ cumulus_network_ilab_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
@@ -738,9 +738,8 @@ cumulus_container_clusters_template_swarm_fedora_atomic_27:
   server_type: "vm"
 
 cumulus_container_clusters_template_k8s_fedora_atomic_27:
-  flags:
-    - "floating-ip-disabled"
-    - "public"
+  floating-ip-disabled:
+  public:
   labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true"
   external_network: "{{ cumulus_network_ilab_name }}"
   fixed_network: "{{ cumulus_network_ilab_name }}"
@@ -755,8 +754,7 @@ cumulus_container_clusters_template_k8s_fedora_atomic_27:
   server_type: "vm"
 
 cumulus_container_clusters_template_k8s_fedora_atomic_29:
-  flags:
-    - "public"
+  public:
   labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.13.4,cloud_provider_tag=1.13.1"
   external_network: "{{ cumulus_network_ilab_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
