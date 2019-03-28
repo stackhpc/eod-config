@@ -1,0 +1,38 @@
+[
+    {
+        "local": [
+            {
+                "user": {
+                    "name": "{0}",
+                    "email": "{1}"
+                }, 
+                "projects": [
+                    {
+                        "name": "iris", 
+                        "roles": [
+                            {
+                                "name": "observer"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], 
+        "remote": [
+            {
+                "type": "OIDC-preferred_username"
+            }, 
+            {
+                "type": "OIDC-email"
+            }, 
+            {
+                "regex": true, 
+                "type": "OIDC-email", 
+                "any_one_of": [
+                    "^.*@stackhpc.com$", 
+                    "^.ac.uk$"
+                ]
+            }
+        ]
+    }
+]
