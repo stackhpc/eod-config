@@ -29,7 +29,8 @@ openstack quota set \
   --routers 0 --rbac-policies 0 --vips 0\
   $iris_project_id
 
-openstack quota set --snapshots 0 --volumes 0 --backups 0 $iris_project_id
-openstack quota set --gigabytes 0 --backup-gigabytes 0 --volume-type 0 $iris_project_id
+openstack quota set \
+   --snapshots 0 --volumes 0 --backups 0 \
+   --gigabytes 0 --backup-gigabytes 0 $iris_project_id
 
  #--l7policies 0 --vips 0 --health-monitors 0 \
