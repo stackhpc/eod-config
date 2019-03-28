@@ -33,4 +33,12 @@ openstack quota set \
    --snapshots 0 --volumes 0 --backups 0 \
    --gigabytes 0 --backup-gigabytes 0 $iris_project_id
 
- #--l7policies 0 --vips 0 --health-monitors 0 \
+# TODO: --l7policies 0 --vips 0 --health-monitors 0 ?
+
+# add federated user to euclid project in default domain
+federated_user_id=2ac355e033c948639ff918ce666941ad
+euclid_project=98a31306a45145b9a4d4b2327aa142be
+openstack role add --project $euclid_project --user $federated_user_id heat_stack_owner
+
+# add regular admin as domain admin in federation domain
+openstack role add --domain $fed_domain_id --user admin --user-domain default admin
