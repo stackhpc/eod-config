@@ -200,7 +200,8 @@ cumulus_subnet_internet:
 # cumulus external network name.
 cumulus_network_ilab_name: "ilab-215"
 
-# cumulus external network.
+# cumulus external network. This represents a network that is accessible on
+# ilab gate.
 cumulus_network_ilab:
   name: "{{ cumulus_network_ilab_name }}"
   project: "admin"
@@ -437,6 +438,10 @@ cumulus_router_internet:
     project: "admin"
     interfaces:
       - "{{ cumulus_network_internal_name }}"
+      # This is the gateway for the cumulus_network_ilab_name
+      - net: "{{ cumulus_network_ilab_name }}"
+        subnet: "{{ cumulus_network_ilab_name }}"
+        portip: 10.215.0.2
     network: "{{ cumulus_network_internet_name }}"
 
 # cumulus bare metal provisioning router.
