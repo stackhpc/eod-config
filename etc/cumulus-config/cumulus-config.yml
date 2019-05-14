@@ -170,6 +170,7 @@ cumulus_networks:
   - "{{ cumulus_network_internet }}"
   - "{{ cumulus_network_ilab }}"
   - "{{ cumulus_network_internal }}"
+  - "{{ cumulus_network_storage }}"
   - "{{ cumulus_network_demo_vxlan }}"
 
 cumulus_network_internet_name: "internet"
@@ -429,6 +430,7 @@ cumulus_routers:
   - "{{ cumulus_router_internet }}"
   - "{{ cumulus_router_demo }}"
   - "{{ cumulus_router_internal_to_ilab }}"
+  - "{{ cumulus_router_internal_to_storage }}"
 
 cumulus_router_internet:
   - name: "internal-to-internet"
@@ -501,7 +503,9 @@ cumulus_router_internal_to_storage:
       - net: "{{ cumulus_network_internal_name }}"
         subnet: "{{ cumulus_network_internal_name }}"
         portip: "10.218.0.3"
-    network: "{{ cumulus_network_storage_name }}"
+      - net: "{{ cumulus_network_storage_name }}"
+        subnet: "{{ cumulus_network_storage_name }}"
+        portip: "10.206.0.1"
 
 # List of security groups in the cumulus demo project. Format is as required by the
 # stackhpc.os-networks role.
