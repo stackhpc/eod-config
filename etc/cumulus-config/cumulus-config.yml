@@ -620,15 +620,18 @@ cumulus_centos_7:
   image_url: "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1901.qcow2"
   properties:
     os_type: "linux"
-    os_distro: "centos7.0"
+    os_distro: "centos"
     os_version: "7.0"
+    hw_scsi_model: "virtio-scsi"
+    hw_disk_bus: "scsi"
+    hw_vif_model: "virtio"
 
 cumulus_cirros:
   name: "Cirros-0.4.0"
   image_url: "http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img"
   properties:
     os_type: "linux"
-    os_distro: "cirros0.4.0"
+    os_distro: "cirros"
     os_version: "0.4.0"
 
 cumulus_debian_9:
@@ -636,7 +639,7 @@ cumulus_debian_9:
   image_url: "http://cdimage.debian.org/cdimage/cloud/OpenStack/9.9.0/debian-9.9.0-openstack-amd64.qcow2"
   properties:
     os_type: "linux"
-    os_distro: "debian9"
+    os_distro: "debian"
     os_version: "9.9.0"
 
 cumulus_fedora_30:
@@ -644,7 +647,7 @@ cumulus_fedora_30:
   image_url: "https://download.fedoraproject.org/pub/fedora/linux/releases/30/Cloud/x86_64/images/Fedora-Cloud-Base-30-1.2.x86_64.qcow2"
   properties:
     os_type: "linux"
-    os_distro: "fedora29" # this is because osinfo doesn't know about fedora30 yet
+    os_distro: "fedora" # this is because osinfo doesn't know about fedora30 yet
     os_version: "30"
 
 cumulus_ubuntu_18_04:
@@ -652,7 +655,7 @@ cumulus_ubuntu_18_04:
   image_url: "http://cloud-images.ubuntu.com/bionic/20190513/bionic-server-cloudimg-amd64.img"
   properties:
     os_type: "linux"
-    os_distro: "ubuntu18.04"
+    os_distro: "ubuntu"
     os_version: "18.04"
 
 cumulus_openSUSE_leap_15:
@@ -660,7 +663,7 @@ cumulus_openSUSE_leap_15:
   image_url: "https://download.opensuse.org/distribution/leap/15.1/jeos/openSUSE-Leap-15.1-JeOS.x86_64-15.1.0-OpenStack-Cloud-Current.qcow2"
   properties:
     os_type: "linux"
-    os_distro: "opensuse15.0"
+    os_distro: "opensuse"
     os_version: "15.1.0"
 
 # Latest CentOS image
