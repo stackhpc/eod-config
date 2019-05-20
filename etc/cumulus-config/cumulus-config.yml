@@ -8,11 +8,73 @@
 # List of OpenStack projects. Format is as required by the stackhpc.os-projects
 # role.
 cumulus_projects:
+  - "{{ cumulus_iris_dirac }}"
+  - "{{ cumulus_iris_euclid }}"
   - "{{ cumulus_demo_project }}"
-  - "{{ cumulus_euclid_project }}"
   - "{{ cumulus_services_project }}"
   - "{{ cumulus_tempest_project }}"
   - "{{ cumulus_tempest_alt_project }}"
+
+federated_domain: "ee408625947942aa8b21f86831b39339"
+federated_user_default_password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      63663030613037356135666465346230313465316235656665363730646164643539323336663563
+      3035613339356163313834653130323433663365323538380a343633303231353536393836383161
+      36386337626439643265633463366361623061363565353835643133336662346261313334373765
+      3164303661653064660a633962363239313136326234633932306662306466323561313235663938
+      62623665653836376165356635633235356366333265356466366664346266313661303465663131
+      3032383735386266313966373363636339393565333335323031
+iris_small_quota:
+  instances: 20
+  cores: 200
+  ram: 512000 # 500GB
+  floating_ips: 3
+  routers: 3
+  ports: 500
+  volumes: 20
+
+cumulus_iris_dirac:
+  name: iris-DIRAC
+  description: IRIS@Cambridge DIRAC
+  project_domain: Default
+  users: "{{ cumulus_iris_dirac_users }}"
+  user_domain: "{{ federated_domain }}"
+  quotas: "{{ iris_small_quota }}"
+
+cumulus_iris_dirac_users:
+  - name: "jgarbutt"
+    email: "johng@stackhpc.com"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
+
+cumulus_iris_euclid:
+  name: iris-euclid
+  description: IRIS@Cambridge Euclid
+  project_domain: Default
+  users: "{{ cumulus_iris_euclid_users }}"
+  user_domain: "{{ federated_domain }}"
+  quotas:
+    instances: 20
+    cores: 400
+    ram: 5120000 # 5000GB
+    floating_ips: 3
+    routers: 3
+    ports: 500
+    volumes: 20
+
+cumulus_iris_euclid_users:
+  - name: "stig@stackhpc.com"
+    email: "stig@stackhpc.com"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
+  - name: "jgarbutt"
+    email: "johng@stackhpc.com"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
+#  - name: "markholliman@gmail.com"
+#    email: "markholliman@gmail.com"
+#    password: "{{ federated_user_default_password }}"
+#    roles: "{{ cumulus_user_roles }}"
 
 # Definition of the cumulus demo project. Format is as required by the
 # stackhpc.os-projects role.
@@ -136,9 +198,8 @@ cumulus_admin_roles:
 
 # List of roles to apply to regular users in the cumulus demo project.
 cumulus_user_roles:
+  - member
   - heat_stack_owner
-  - observer
-  - monasca-read-only-user
 
 # Dict of quotas to set for projects with unlimited resource quotas
 cumulus_unlimited_quotas:
@@ -153,13 +214,6 @@ cumulus_unlimited_quotas:
   secgroup_rules: -1
   secgroups: -1
   volumes: -1
-
-cumulus_euclid_project:
-  name: iris-euclid
-  description: IRIS@Cambridge Euclid
-  project_domain: default
-  user_domain: default
-  users: "{{ cumulus_resops_users }}"
 
 ###############################################################################
 # Configuration of networks, subnets and routers for cumulus.
