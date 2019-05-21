@@ -46,6 +46,14 @@ cumulus_iris_dirac_users:
     email: "johng@stackhpc.com"
     password: "{{ federated_user_default_password }}"
     roles: "{{ cumulus_user_roles }}"
+  - name: "daniela.bauer@imperial.ac.uk"
+    email: "daniela.bauer@imperial.ac.uk"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
+  - name: "simon.fayer05@imperial.ac.uk"
+    email: "simon.fayer05@imperial.ac.uk"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
 
 cumulus_iris_euclid:
   name: iris-euclid
