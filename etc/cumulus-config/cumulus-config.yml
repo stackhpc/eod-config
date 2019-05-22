@@ -232,6 +232,7 @@ cumulus_networks:
   - "{{ cumulus_network_internet }}"
   - "{{ cumulus_network_ilab }}"
   - "{{ cumulus_network_internal }}"
+  - "{{ cumulus_network_storage }}"
   - "{{ cumulus_network_demo_vxlan }}"
 
 cumulus_network_internet_name: "internet"
@@ -319,6 +320,28 @@ cumulus_subnet_internal:
   host_routes:
     - destination: "{{ cumulus_subnet_external.cidr }}"
       nexthop: 10.218.0.2
+    - destination: "{{ cumulus_subnet_storage.cidr }}"
+      nexthop: 10.218.0.3
+
+cumulus_network_storage_name: "cumulus-storage"
+
+cumulus_network_storage:
+  name: "{{ cumulus_network_storage_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 206
+  shared: false
+  external: false
+  subnets:
+    - "{{ cumulus_subnet_storage }}"
+
+cumulus_subnet_storage:
+  name: "{{ cumulus_network_storage_name }}"
+  project: "admin"
+  cidr: "10.206.0.0/16"
+  allocation_pool_start: "10.206.206.1"
+  allocation_pool_end: "10.206.206.254"
 
 # cumulus inspection network name.
 cumulus_network_inspection_name: "inspection-net"
@@ -343,30 +366,6 @@ cumulus_subnet_inspection:
   enable_dhcp: false
   allocation_pool_start: "10.71.0.1"
   allocation_pool_end: "10.71.0.1"
-
-# cumulus storage network name.
-cumulus_network_storage_name: "storage"
-
-# cumulus storage network.
-cumulus_network_storage:
-  name: "{{ cumulus_network_storage_name }}"
-  project: "admin"
-  provider_network_type: "vlan"
-  provider_physical_network: "physnet1"
-  provider_segmentation_id: 66
-  shared: true
-  external: false
-  # Subnet configuration.
-  subnets:
-    - "{{ cumulus_subnet_storage }}"
-
-# cumulus storage subnet.
-cumulus_subnet_storage:
-  name: "{{ cumulus_network_storage_name }}"
-  project: "admin"
-  cidr: "10.66.0.0/16"
-  allocation_pool_start: "10.66.2.0"
-  allocation_pool_end: "10.66.2.255"
 
 # cumulus demo VLAN network name.
 cumulus_network_demo_vlan_name: "demo-vlan"
@@ -494,6 +493,7 @@ cumulus_routers:
   - "{{ cumulus_router_internet }}"
   - "{{ cumulus_router_demo }}"
   - "{{ cumulus_router_internal_to_ilab }}"
+  - "{{ cumulus_router_internal_to_storage }}"
 
 cumulus_router_internet:
   - name: "internal-to-internet"
@@ -562,6 +562,17 @@ cumulus_router_internal_to_ilab:
         subnet: "{{ cumulus_network_internal_name }}"
         portip: "10.218.0.2"
     network: "{{ cumulus_network_ilab_name }}"
+
+cumulus_router_internal_to_storage:
+  - name: internal-to-storage
+    project: admin
+    interfaces:
+      - net: "{{ cumulus_network_internal_name }}"
+        subnet: "{{ cumulus_network_internal_name }}"
+        portip: "10.218.0.3"
+      - net: "{{ cumulus_network_storage_name }}"
+        subnet: "{{ cumulus_network_storage_name }}"
+        portip: "10.206.0.1"
 
 # List of security groups in the cumulus demo project. Format is as required by the
 # stackhpc.os-networks role.
