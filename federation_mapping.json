@@ -8,7 +8,7 @@
                 }, 
                 "projects": [
                     {
-                        "name": "iris", 
+                        "name": "iris",
                         "roles": [
                             {
                                 "name": "observer"
@@ -27,10 +27,15 @@
             }, 
             {
                 "regex": true, 
-                "type": "OIDC-email", 
+                "type": "OIDC-email",
                 "any_one_of": [
-                    "^.*@stackhpc.com$", 
-                    "^.ac.uk$"
+                    "^.*@stackhpc.com$",
+                    "^.*@cam.ac.uk$",
+                    "^.*.ac.uk$",
+                    "daniela.bauer@imperial.ac.uk",
+                    "simon.fayer05@imperial.ac.uk",
+                    "daniela.bauer.grid@googlemail.com",
+                    "markholliman@gmail.com"
                 ]
             }
         ]
