@@ -186,7 +186,7 @@ cumulus_resops_users:
       3164303661653064660a633962363239313136326234633932306662306466323561313235663938
       62623665653836376165356635633235356366333265356466366664346266313661303465663131
       3032383735386266313966373363636339393565333335323031
-    roles: "{{ cumulus_admin_roles }}"
+    roles: "{{ cumulus_user_roles }}"
   - name: will
     password: !vault |
       $ANSIBLE_VAULT;1.1;AES256
@@ -196,6 +196,46 @@ cumulus_resops_users:
       3165343262616432330a383563393262343765633862613065663334393365373630333039363930
       32613236326538346339386334613033363665643466373336653264373737653037633634346663
       6630336535346132643735306566633031363665626338366632
+    roles: "{{ cumulus_admin_roles }}"
+  - name: pfb29
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      36663037623662393762623234346662336566316431663161373936356638636536616166356161
+      6361633332313834333431646133363432633931663131610a393030643539323335373136303864
+      33336166326562653864653831343538323138613734663461363531396562383836653161666532
+      6264343734663165620a313037383136383731663232396333353964303733323837313232666437
+      62643633393737633164633430366637656438323638373534636531343633616236373963653938
+      6663343332303437316463396336626563376564313635313438
+    roles: "{{ cumulus_user_roles }}"
+  - name: pfb29-admin
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      36663037623662393762623234346662336566316431663161373936356638636536616166356161
+      6361633332313834333431646133363432633931663131610a393030643539323335373136303864
+      33336166326562653864653831343538323138613734663461363531396562383836653161666532
+      6264343734663165620a313037383136383731663232396333353964303733323837313232666437
+      62643633393737633164633430366637656438323638373534636531343633616236373963653938
+      6663343332303437316463396336626563376564313635313438
+    roles: "{{ cumulus_admin_roles }}"
+  - name: javiern
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      66396565613239353733373236393336663235383433393435333763386534366265333135316639
+      6262383664353331363631633338326233666565653864300a656663643031636162373536653762
+      61646661303865313364383035383833393861653863383030373435373262636132343563366565
+      6134666164636564630a356362363730306534653764336437326136373534393334356537643562
+      38366163313266323664333431666161326666313137326536353232613732303536636361613033
+      3534653463643838333365306230356263303432656364313761
+    roles: "{{ cumulus_user_roles }}"
+  - name: javiern-admin
+    password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      66396565613239353733373236393336663235383433393435333763386534366265333135316639
+      6262383664353331363631633338326233666565653864300a656663643031636162373536653762
+      61646661303865313364383035383833393861653863383030373435373262636132343563366565
+      6134666164636564630a356362363730306534653764336437326136373534393334356537643562
+      38366163313266323664333431666161326666313137326536353232613732303536636361613033
+      3534653463643838333365306230356263303432656364313761
     roles: "{{ cumulus_admin_roles }}"
 
 # List of roles to apply to admin users in the cumulus demo project.
@@ -620,13 +660,14 @@ cumulus_flavors:
   - "{{ cumulus_flavor_general_large }}"
   - "{{ cumulus_flavor_general_medium }}"
   - "{{ cumulus_flavor_general_small }}"
+  - "{{ cumulus_flavor_general_tiny }}"
 
 cumulus_flavor_general_xlarge:
   name: "general.v1.xlarge"
   vcpus: 56
   ram: 184320
   disk: 20
-  ephemeral: 300
+  ephemeral: 340
 #  extra_specs:
 #    "hw:mem_page_size": "1GB"
 #    "hw:numa_nodes": "2"
@@ -636,7 +677,7 @@ cumulus_flavor_general_large:
   vcpus: 28
   ram: 92160
   disk: 20
-  ephemeral: 150
+  ephemeral: 160
 #  extra_specs:
 #    "hw:mem_page_size": "1GB"
 #    "hw:numa_nodes": "1"
@@ -660,6 +701,13 @@ cumulus_flavor_general_small:
 #  extra_specs:
 #    "hw:mem_page_size": "1GB"
 #    "hw:numa_nodes": "1"
+
+cumulus_flavor_general_tiny:
+  name: "general.v1.tiny"
+  vcpus: 2
+  ram: 6144
+  disk: 12
+  ephemeral: 0
 
 # Bare metal compute node.
 cumulus_flavor_baremetal_general:
@@ -828,7 +876,7 @@ cumulus_container_clusters_template_swarm_fedora_atomic_27:
   public:
   floating-ip-disabled:
   external_network: "{{ cumulus_network_ilab_name }}"
-  master_flavor: "{{ cumulus_flavor_general_small.name }}"
+  master_flavor: "{{ cumulus_flavor_general_tiny.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic29-20190429"
   name: "swarm"
@@ -842,7 +890,7 @@ cumulus_container_clusters_template_k8s_13:
   floating-ip-disabled:
   labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.13.5,cloud_provider_tag=1.13.1"
   external_network: "{{ cumulus_network_ilab_name }}"
-  master_flavor: "{{ cumulus_flavor_general_small.name }}"
+  master_flavor: "{{ cumulus_flavor_general_tiny.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic29-20190429"
   name: "kubernetes-1.13"
@@ -856,7 +904,7 @@ cumulus_container_clusters_template_k8s_14:
   floating-ip-disabled:
   labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.14.1,cloud_provider_tag=1.14.0"
   external_network: "{{ cumulus_network_ilab_name }}"
-  master_flavor: "{{ cumulus_flavor_general_small.name }}"
+  master_flavor: "{{ cumulus_flavor_general_tiny.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic29-20190429"
   name: "kubernetes-1.14"
