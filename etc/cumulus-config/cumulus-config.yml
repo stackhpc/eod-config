@@ -665,26 +665,17 @@ cumulus_images:
   - "{{ cumulus_fedora_atomic_29 }}"
   - "{{ cumulus_cirros }}"
   - "{{ cumulus_debian_9 }}"
-  - "{{ cumulus_fedora_29 }}"
+  - "{{ cumulus_fedora_30 }}"
   - "{{ cumulus_ubuntu_18_04 }}"
   - "{{ cumulus_openSUSE_leap_15 }}"
 
-cumulus_fedora_atomic_27:
-  name: "FedoraAtomic27"
-  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-27-20180419.0/CloudImages/x86_64/images/Fedora-Atomic-27-20180419.0.x86_64.qcow2"
-  properties:
-    os_type: "linux"
-    os_distro: "fedora-atomic"
-    os_version: "27"
-
 cumulus_fedora_atomic_29:
-  name: "FedoraAtomic29-20190219"
-  #image_url: "https://ftp.icm.edu.pl/pub/Linux/dist/fedora-alt/atomic/stable/Fedora-29-updates-20190121.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20190121.0.x86_64.qcow2"
-  image_url: "https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-29-updates-20190219.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20190219.0.x86_64.qcow2"
+  name: "FedoraAtomic29-20190429"
+  image_url: "https://ftp.icm.edu.pl/pub/Linux/dist/fedora-alt/atomic/stable/Fedora-29-updates-20190429.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20190429.0.x86_64.qcow2"
   properties:
     os_type: "linux"
     os_distro: "fedora-atomic"
-    os_version: "27"
+    os_version: "29"
 
 cumulus_centos_7:
   name: "CentOS7-1901"
@@ -692,7 +683,10 @@ cumulus_centos_7:
   properties:
     os_type: "linux"
     os_distro: "centos"
-    os_version: "7"
+    os_version: "7.0"
+    hw_scsi_model: "virtio-scsi"
+    hw_disk_bus: "scsi"
+    hw_vif_model: "virtio"
 
 cumulus_cirros:
   name: "Cirros-0.4.0"
@@ -703,37 +697,36 @@ cumulus_cirros:
     os_version: "0.4.0"
 
 cumulus_debian_9:
-  name: "Debian-Stretch-9.8.2"
-  #image_url: "http://cdimage.debian.org/cdimage/cloud/OpenStack/archive/9.8.1-20190220/debian-9.8.1-20190220-openstack-amd64.qcow2"
-  image_url: "http://cdimage.debian.org/cdimage/cloud/OpenStack/9.8.2-20190303/debian-9.8.2-20190303-openstack-amd64.qcow2"
+  name: "Debian-Stretch-9.9.0"
+  image_url: "http://cdimage.debian.org/cdimage/cloud/OpenStack/9.9.0/debian-9.9.0-openstack-amd64.qcow2"
   properties:
     os_type: "linux"
     os_distro: "debian"
-    os_version: "9.7"
+    os_version: "9.9.0"
 
-cumulus_fedora_29:
-  name: "Fedora-29-1.2"
-  image_url: "https://download.fedoraproject.org/pub/fedora/linux/releases/29/Cloud/x86_64/images/Fedora-Cloud-Base-29-1.2.x86_64.qcow2"
+cumulus_fedora_30:
+  name: "Fedora-30-1.2"
+  image_url: "https://download.fedoraproject.org/pub/fedora/linux/releases/30/Cloud/x86_64/images/Fedora-Cloud-Base-30-1.2.x86_64.qcow2"
   properties:
     os_type: "linux"
-    os_distro: "fedora"
-    os_version: "29"
+    os_distro: "fedora" # this is because osinfo doesn't know about fedora30 yet
+    os_version: "30"
 
 cumulus_ubuntu_18_04:
-  name: "Ubuntu-Bionic-18.04-20190225"
-  image_url: "http://cloud-images.ubuntu.com/bionic/20190225/bionic-server-cloudimg-amd64.img"
+  name: "Ubuntu-Bionic-18.04-20190513"
+  image_url: "http://cloud-images.ubuntu.com/bionic/20190513/bionic-server-cloudimg-amd64.img"
   properties:
     os_type: "linux"
     os_distro: "ubuntu"
     os_version: "18.04"
 
 cumulus_openSUSE_leap_15:
-  name: "openSUSE-Leap-15.0.1"
-  image_url: "https://download.opensuse.org/distribution/leap/15.0/jeos/openSUSE-Leap-15.0-JeOS.x86_64-15.0.1-OpenStack-Cloud-Current.qcow2"
+  name: "openSUSE-Leap-15.1.0"
+  image_url: "https://download.opensuse.org/distribution/leap/15.1/jeos/openSUSE-Leap-15.1-JeOS.x86_64-15.1.0-OpenStack-Cloud-Current.qcow2"
   properties:
     os_type: "linux"
     os_distro: "opensuse"
-    os_version: "15.0"
+    os_version: "15.1.0"
 
 # Latest CentOS image
 cumulus_image_centos:
@@ -812,45 +805,45 @@ cumulus_systemd_modules_load_ipoib: |
 
 cumulus_container_clusters_templates:
   - "{{ cumulus_container_clusters_template_swarm_fedora_atomic_27 }}"
-  #- "{{ cumulus_container_clusters_template_k8s_fedora_atomic_27 }}"
-  - "{{ cumulus_container_clusters_template_k8s_fedora_atomic_29 }}"
+  - "{{ cumulus_container_clusters_template_k8s_13 }}"
+  - "{{ cumulus_container_clusters_template_k8s_14 }}"
 
 cumulus_container_clusters_template_swarm_fedora_atomic_27:
   public:
+  floating-ip-disabled:
   external_network: "{{ cumulus_network_ilab_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
-  image: "FedoraAtomic29-20190219"
+  image: "FedoraAtomic29-20190429"
   name: "swarm"
   coe: "swarm-mode"
   network_driver: "docker"
   docker_storage_driver: "overlay2"
   server_type: "vm"
 
-cumulus_container_clusters_template_k8s_fedora_atomic_27:
-  floating-ip-disabled:
+cumulus_container_clusters_template_k8s_13:
   public:
-  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true"
+  floating-ip-disabled:
+  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.13.5,cloud_provider_tag=1.13.1"
   external_network: "{{ cumulus_network_ilab_name }}"
-  fixed_network: "{{ cumulus_network_ilab_name }}"
-  fixed_subnet: "{{ cumulus_network_ilab_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
-  image: "FedoraAtomic27"
-  name: "k8s-fedora-atomic-27"
+  image: "FedoraAtomic29-20190429"
+  name: "kubernetes-1.13"
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
   server_type: "vm"
 
-cumulus_container_clusters_template_k8s_fedora_atomic_29:
+cumulus_container_clusters_template_k8s_14:
   public:
-  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.13.4,cloud_provider_tag=1.13.1"
+  floating-ip-disabled:
+  labels: "cgroup_driver=cgroupfs,prometheus_monitoring=true,kube_tag=v1.14.1,cloud_provider_tag=1.14.0"
   external_network: "{{ cumulus_network_ilab_name }}"
   master_flavor: "{{ cumulus_flavor_general_small.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
-  image: "FedoraAtomic29-20190219"
-  name: "kubernetes-13.4"
+  image: "FedoraAtomic29-20190429"
+  name: "kubernetes-1.14"
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
