@@ -751,6 +751,7 @@ cumulus_centos_7:
     hw_scsi_model: "virtio-scsi"
     hw_disk_bus: "scsi"
     hw_vif_model: "virtio"
+    hw_vif_multiqueue_enabled: "true"
 
 cumulus_cirros:
   name: "Cirros-0.4.0"
