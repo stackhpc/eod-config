@@ -10,6 +10,7 @@
 cumulus_projects:
   - "{{ cumulus_iris_dirac }}"
   - "{{ cumulus_iris_euclid }}"
+  - "{{ cumulus_iris_gaia }}"
   - "{{ cumulus_demo_project }}"
   - "{{ cumulus_services_project }}"
   - "{{ cumulus_tempest_project }}"
@@ -81,6 +82,24 @@ cumulus_iris_euclid_users:
     roles: "{{ cumulus_user_roles }}"
   - name: "markholliman@gmail.com"
     email: "markholliman@gmail.com"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
+
+cumulus_iris_gaia:
+  name: iris-gaia
+  description: IRIS@Cambridge Gaia
+  project_domain: Default
+  users: "{{ cumulus_iris_gaia_users }}"
+  user_domain: "{{ federated_domain }}"
+  quotas: "{{ iris_small_quota }}"
+
+cumulus_iris_gaia_users:
+  - name: "Nigel Hambly"
+    email: "nch@roe.ac.uk"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
+  - name: "Dave Morris"
+    email: "dmr@roe.ac.uk"
     password: "{{ federated_user_default_password }}"
     roles: "{{ cumulus_user_roles }}"
 
