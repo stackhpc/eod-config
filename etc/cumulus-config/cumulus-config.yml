@@ -664,7 +664,7 @@ cumulus_flavors:
 
 cumulus_flavor_general_xlarge:
   name: "general.v1.xlarge"
-  vcpus: 56
+  vcpus: 28
   ram: 184320
   disk: 20
   ephemeral: 340
@@ -751,6 +751,7 @@ cumulus_centos_7:
     hw_scsi_model: "virtio-scsi"
     hw_disk_bus: "scsi"
     hw_vif_model: "virtio"
+    hw_vif_multiqueue_enabled: "true"
 
 cumulus_cirros:
   name: "Cirros-0.4.0"
