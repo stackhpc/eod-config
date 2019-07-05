@@ -567,6 +567,9 @@ cumulus_router_internet:
       - net: "{{ cumulus_network_ilab_name }}"
         subnet: "{{ cumulus_network_ilab_name }}"
         portip: 10.215.0.2
+      - net: "{{ cumulus_network_internal_name }}"
+        subnet: "{{ cumulus_network_internal_name }}"
+        portip: 10.218.0.1
     network: "{{ cumulus_network_internet_name }}"
 
 # cumulus bare metal provisioning router.
