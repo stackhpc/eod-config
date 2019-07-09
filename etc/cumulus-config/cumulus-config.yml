@@ -98,7 +98,7 @@ cumulus_iris_gaia_users:
      email: "pfb29@cam.ac.uk"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
-   - name: "Nigel Hambly"
+   - name: "nigelhambly@googlemail.com"
      email: "nigelhambly@googlemail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
