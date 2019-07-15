@@ -94,7 +94,7 @@ cumulus_iris_gaia:
   quotas: "{{ iris_small_quota }}"
 
 cumulus_iris_gaia_users:
-   - name: "pfb29@cam.ac.uk"
+   - name: "pfb29"
      email: "pfb29@cam.ac.uk"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
@@ -102,10 +102,10 @@ cumulus_iris_gaia_users:
      email: "nigelhambly@googlemail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
-#  - name: "Dave Morris"
-#    email: "dmr@roe.ac.uk"
-#    password: "{{ federated_user_default_password }}"
-#    roles: "{{ cumulus_user_roles }}"
+  - name: "Dave Morris"
+    email: "yrvafhom@gmail.com"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
 
 # Definition of the cumulus demo project. Format is as required by the
 # stackhpc.os-projects role.
