@@ -102,7 +102,7 @@ cumulus_iris_gaia_users:
      email: "nigelhambly@googlemail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
-   - name: "Dave Morris"
+   - name: "yrvafhom@gmail.com"
      email: "yrvafhom@gmail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
