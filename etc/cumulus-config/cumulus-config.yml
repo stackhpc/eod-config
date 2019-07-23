@@ -107,6 +107,20 @@ cumulus_iris_gaia_users:
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
 
+cumulus_iris_vcycle:
+  name: iris-vcyclce
+  description: IRIS@Cambridge vcycle
+  project_domain: Default
+  users: "{{ cumulus_iris_vcycle_users }}"
+  user_domain: "{{ federated_domain }}"
+  quotas: "{{ iris_small_quota }}"
+
+cumulus_iris_vcycle_users:
+   - name: "andrew.mcnab@cern.ch"
+     email: "andrew.mcnab@cern.ch"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+
 # Definition of the cumulus demo project. Format is as required by the
 # stackhpc.os-projects role.
 cumulus_demo_project:
