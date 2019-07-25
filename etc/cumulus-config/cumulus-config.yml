@@ -11,6 +11,7 @@ cumulus_projects:
   - "{{ cumulus_iris_dirac }}"
   - "{{ cumulus_iris_euclid }}"
   - "{{ cumulus_iris_gaia }}"
+  - "{{ cumulus_iris_vcycle }}"
   - "{{ cumulus_demo_project }}"
   - "{{ cumulus_services_project }}"
   - "{{ cumulus_tempest_project }}"
@@ -25,6 +26,7 @@ federated_user_default_password: !vault |
       3164303661653064660a633962363239313136326234633932306662306466323561313235663938
       62623665653836376165356635633235356366333265356466366664346266313661303465663131
       3032383735386266313966373363636339393565333335323031
+
 iris_small_quota:
   instances: 20
   cores: 200
@@ -32,6 +34,15 @@ iris_small_quota:
   floating_ips: 3
   routers: 3
   ports: 500
+  volumes: 20
+
+iris_tiny_quota:
+  instances: 10
+  cores: 10
+  ram: 98304 # 96GB
+  floating_ips: 3
+  routers: 1
+  ports: 50
   volumes: 20
 
 cumulus_iris_dirac:
@@ -104,6 +115,20 @@ cumulus_iris_gaia_users:
      roles: "{{ cumulus_user_roles }}"
    - name: "yrvafhom@gmail.com"
      email: "yrvafhom@gmail.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+
+cumulus_iris_vcycle:
+  name: iris-vcycle
+  description: IRIS@Cambridge vcycle
+  project_domain: Default
+  users: "{{ cumulus_iris_vcycle_users }}"
+  user_domain: "{{ federated_domain }}"
+  quotas: "{{ iris_tiny_quota }}"
+
+cumulus_iris_vcycle_users:
+   - name: "andrew.mcnab@cern.ch"
+     email: "andrew.mcnab@cern.ch"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
 
