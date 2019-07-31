@@ -146,6 +146,10 @@ cumulus_iris_casu_users:
      email: "johng@stackhpc.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
+   - name: "e.gonzalezsolares@gmail.com"
+     email: "e.gonzalezsolares@gmail.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
 
 # Definition of the cumulus demo project. Format is as required by the
 # stackhpc.os-projects role.
