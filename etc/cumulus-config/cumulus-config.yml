@@ -12,6 +12,7 @@ cumulus_projects:
   - "{{ cumulus_iris_euclid }}"
   - "{{ cumulus_iris_gaia }}"
   - "{{ cumulus_iris_vcycle }}"
+  - "{{ cumulus_iris_casu }}"
   - "{{ cumulus_demo_project }}"
   - "{{ cumulus_services_project }}"
   - "{{ cumulus_tempest_project }}"
@@ -129,6 +130,24 @@ cumulus_iris_vcycle:
 cumulus_iris_vcycle_users:
    - name: "andrew.mcnab@cern.ch"
      email: "andrew.mcnab@cern.ch"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+
+cumulus_iris_casu:
+  name: iris-casu
+  description: IRIS@Cambridge CASU
+  project_domain: Default
+  users: "{{ cumulus_iris_casu_users }}"
+  user_domain: "{{ federated_domain }}"
+  quotas: "{{ iris_tiny_quota }}"
+
+cumulus_iris_casu_users:
+   - name: "jgarbutt"
+     email: "johng@stackhpc.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+   - name: "e.gonzalezsolares@gmail.com"
+     email: "e.gonzalezsolares@gmail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
 
