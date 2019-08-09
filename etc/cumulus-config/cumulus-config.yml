@@ -315,6 +315,7 @@ cumulus_network_internet:
   external: true
   subnets:
     - "{{ cumulus_subnet_internet }}"
+    - "{{ cumulus_subnet_internet2 }}"
 
 # cumulus external subnet.
 cumulus_subnet_internet:
@@ -324,6 +325,19 @@ cumulus_subnet_internet:
   gateway_ip: "128.232.225.254"
   allocation_pool_start: "128.232.224.69"
   allocation_pool_end: "128.232.224.79"
+  dns_nameservers:
+    - 131.111.8.42
+    - 131.111.12.20
+
+# cumulus external subnet.
+cumulus_subnet_internet2:
+  name: "internet2"
+  project: "admin"
+  cidr: "128.232.226.0/23"
+  gateway_ip: "128.232.227.254"
+  enable_dhcp: false
+  allocation_pool_start: "128.232.227.123"
+  allocation_pool_end: "128.232.227.251"
   dns_nameservers:
     - 131.111.8.42
     - 131.111.12.20
