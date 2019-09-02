@@ -165,6 +165,10 @@ cumulus_iris_ccfe_users:
      email: "johng@stackhpc.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
+   - name: "andrew.lahiff@gmail.com"
+     email: "andrew.lahiff@gmail.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
 
 # Definition of the cumulus demo project. Format is as required by the
 # stackhpc.os-projects role.
