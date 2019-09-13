@@ -744,6 +744,7 @@ cumulus_flavors:
   - "{{ cumulus_flavor_general_medium }}"
   - "{{ cumulus_flavor_general_small }}"
   - "{{ cumulus_flavor_general_tiny }}"
+  - "{{ cumulus_flavor_lsst_medium }}"
 
 cumulus_flavor_general_xlarge:
   name: "general.v1.xlarge"
@@ -791,6 +792,14 @@ cumulus_flavor_general_tiny:
   ram: 6144
   disk: 12
   ephemeral: 0
+
+cumulus_flavor_lsst_medium:
+  name: "general.v1.lsst.medium"
+  vcpus: 4
+  ram: 16384
+  disk: 30
+  ephemeral: 0
+  is_public: false
 
 # Bare metal compute node.
 cumulus_flavor_baremetal_general:
