@@ -126,7 +126,7 @@ cumulus_iris_vcycle:
   project_domain: Default
   users: "{{ cumulus_iris_vcycle_users }}"
   user_domain: "{{ federated_domain }}"
-  quotas: "{{ iris_tiny_quota }}"
+  quotas: "{{ iris_small_quota }}"
 
 cumulus_iris_vcycle_users:
    - name: "andrew.mcnab@cern.ch"
