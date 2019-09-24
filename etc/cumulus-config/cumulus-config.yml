@@ -68,6 +68,10 @@ cumulus_iris_dirac_users:
     email: "simon.fayer05@imperial.ac.uk"
     password: "{{ federated_user_default_password }}"
     roles: "{{ cumulus_user_roles }}"
+  - name: "paulfj.browne@gmail.com"
+    email: "paulfj.browne@gmail.com"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
 
 cumulus_iris_euclid:
   name: iris-euclid
@@ -97,6 +101,10 @@ cumulus_iris_euclid_users:
     email: "markholliman@gmail.com"
     password: "{{ federated_user_default_password }}"
     roles: "{{ cumulus_user_roles }}"
+  - name: "paulfj.browne@gmail.com"
+    email: "paulfj.browne@gmail.com"
+    password: "{{ federated_user_default_password }}"
+    roles: "{{ cumulus_user_roles }}"
 
 cumulus_iris_gaia:
   name: iris-gaia
@@ -119,6 +127,10 @@ cumulus_iris_gaia_users:
      email: "yrvafhom@gmail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
+   - name: "paulfj.browne@gmail.com"
+     email: "paulfj.browne@gmail.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
 
 cumulus_iris_vcycle:
   name: iris-vcycle
@@ -131,6 +143,10 @@ cumulus_iris_vcycle:
 cumulus_iris_vcycle_users:
    - name: "andrew.mcnab@cern.ch"
      email: "andrew.mcnab@cern.ch"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+   - name: "paulfj.browne@gmail.com"
+     email: "paulfj.browne@gmail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
 
@@ -151,6 +167,10 @@ cumulus_iris_casu_users:
      email: "e.gonzalezsolares@gmail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
+   - name: "paulfj.browne@gmail.com"
+     email: "paulfj.browne@gmail.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
 
 cumulus_iris_ccfe:
   name: iris-ccfe
@@ -167,6 +187,10 @@ cumulus_iris_ccfe_users:
      roles: "{{ cumulus_user_roles }}"
    - name: "andrew.lahiff@gmail.com"
      email: "andrew.lahiff@gmail.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+   - name: "paulfj.browne@gmail.com"
+     email: "paulfj.browne@gmail.com"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
 
