@@ -80,8 +80,8 @@ cumulus_iris_euclid:
   users: "{{ cumulus_iris_euclid_users }}"
   user_domain: "{{ federated_domain }}"
   quotas:
-    instances: 40
-    cores: 1032
+    instances: 42
+    cores: 1152
     ram: 5120000 # 5000GB
     floating_ips: 3
     routers: 3
