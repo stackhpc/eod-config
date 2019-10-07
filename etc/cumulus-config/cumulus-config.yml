@@ -539,8 +539,8 @@ cumulus_router_provision:
   - name: "provision-router"
     project: "admin"
     interfaces:
-      - net: "{{ cumulus_network_internal_name }}"
-        subnet: "{{ cumulus_network_internal_name }}"
+      - net: "{{ cumulus_network_api_name }}"
+        subnet: "{{ cumulus_network_api_name }}"
         portip: "10.205.0.2"
       - net: "provision-net"
         subnet: "provision-net"
@@ -550,8 +550,8 @@ cumulus_router_cleaning:
   - name: "cleaning-router"
     project: "admin"
     interfaces:
-      - net: "{{ cumulus_network_internal_name }}"
-        subnet: "{{ cumulus_network_internal_name }}"
+      - net: "{{ cumulus_network_api_name }}"
+        subnet: "{{ cumulus_network_api_name }}"
         portip: "10.205.0.3"
       - net: "cleaning-net"
         subnet: "cleaning-net"
@@ -561,8 +561,8 @@ cumulus_router_inspection:
   - name: "inspection-router"
     project: "admin"
     interfaces:
-      - net: "{{ cumulus_network_internal_name }}"
-        subnet: "{{ cumulus_network_internal_name }}"
+      - net: "{{ cumulus_network_api_name }}"
+        subnet: "{{ cumulus_network_api_name }}"
         portip: "10.205.0.4"
       - net: "inspection-net"
         subnet: "inspection-net"
@@ -616,7 +616,7 @@ cumulus_flavors:
   - "{{ cumulus_flavor_general_small }}"
   - "{{ cumulus_flavor_general_tiny }}"
   - "{{ cumulus_flavor_lsst_medium }}"
-  - "{{ bm.skylake.dirac25y }}"
+  - "{{ cumulus_flavor_bm_dirac25y }}"
 
 cumulus_flavor_general_xlarge:
   name: "general.v1.xlarge"
@@ -674,13 +674,14 @@ cumulus_flavor_lsst_medium:
   is_public: false
 
 # Bare metal compute node.
-cumulus_flavor_baremetal_skylake_dirac25y:
-  name: "bm.skylake.dirac25y"
+cumulus_flavor_bm_dirac25y:
+  name: "bm.v1.skylake.dirac25y"
   ram: 196608
   disk: 100
   vcpus: 32
+  is_public: false
   extra_specs:
-    "resources:CUSTOM_BAREMETAL_SKYLAKE_DIRAC25Y": 1
+    "resources:CUSTOM_BM_V1_SKYLAKE_DIRAC25Y": 1
     "resources:VCPU": 0
     "resources:MEMORY_MB": 0
     "resources:DISK_GB": 0
