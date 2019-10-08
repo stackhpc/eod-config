@@ -204,6 +204,24 @@ cumulus_demo_project:
   users: "{{ cumulus_resops_users }}"
   quotas: "{{ cumulus_unlimited_quotas }}"
 
+cumulus_pfb29_dev_users:
+   - name: "jgarbutt"
+     email: "johng@stackhpc.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+   - name: "pfb29@cam.ac.uk"
+     email: "pfb29@cam.ac.uk"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+
+cumulus_pfb29_dev_project:
+  name: pfb29-dev
+  description: pfb29-dev project
+  project_domain: Default
+  user_domain: "{{ federated_domain }}"
+  users: "{{ cumulus_pfb29_dev_users }}"
+  quotas: "{{ cumulus_unlimited_quotas }}"
+
 # Definition of the cumulus service project. Format is as required by the
 # stackhpc.os-projects role.
 cumulus_services_project:
@@ -352,6 +370,8 @@ cumulus_unlimited_quotas:
   secgroup_rules: -1
   secgroups: -1
   volumes: -1
+  routers: -1
+  ports: -1
 
 ###############################################################################
 # Configuration of networks, subnets and routers for cumulus.
