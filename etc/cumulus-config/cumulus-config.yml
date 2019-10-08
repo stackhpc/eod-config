@@ -360,13 +360,13 @@ cumulus_unlimited_quotas:
 # stackhpc.os-networks role.
 cumulus_networks:
   - "{{ cumulus_network_internet }}"
-  - "{{ cumulus_network_ilab }}"
   - "{{ cumulus_network_internal }}"
   - "{{ cumulus_network_storage }}"
   - "{{ cumulus_network_demo_vxlan }}"
+  - "{{ cumulus_network_api }}"
+  - "{{ cumulus_network_inspection }}"
 
 cumulus_network_internet_name: "internet"
-
 cumulus_network_internet:
   name: "{{ cumulus_network_internet_name }}"
   project: "admin"
@@ -378,8 +378,6 @@ cumulus_network_internet:
   subnets:
     - "{{ cumulus_subnet_internet }}"
     - "{{ cumulus_subnet_internet2 }}"
-
-# cumulus external subnet.
 cumulus_subnet_internet:
   name: "{{ cumulus_network_internet_name }}"
   project: "admin"
@@ -390,8 +388,6 @@ cumulus_subnet_internet:
   dns_nameservers:
     - 131.111.8.42
     - 131.111.12.20
-
-# cumulus external subnet.
 cumulus_subnet_internet2:
   name: "internet2"
   project: "admin"
@@ -404,40 +400,7 @@ cumulus_subnet_internet2:
     - 131.111.8.42
     - 131.111.12.20
 
-# cumulus external network name.
-cumulus_network_ilab_name: "ilab-215"
-
-# cumulus external network. This represents a network that is accessible on
-# ilab gate.
-cumulus_network_ilab:
-  name: "{{ cumulus_network_ilab_name }}"
-  project: "admin"
-  provider_network_type: "vlan"
-  provider_physical_network: "physnet1"
-  provider_segmentation_id: 215
-  shared: false
-  external: true
-  # Subnet configuration.
-  subnets:
-    - "{{ cumulus_subnet_external }}"
-
-# cumulus external subnet.
-cumulus_subnet_external:
-  name: "{{ cumulus_network_ilab_name }}"
-  project: "admin"
-  cidr: "10.215.0.0/16"
-  gateway_ip: "10.215.0.2"
-  allocation_pool_start: "10.215.215.100"
-  allocation_pool_end: "10.215.215.199"
-  dns_nameservers:
-    - 131.111.8.42
-    - 131.111.12.20
-  # TODO: Add host route to storage subnet.
-
-# cumulus internal network name.
 cumulus_network_internal_name: "cumulus-internal"
-
-# cumulus internal network.
 cumulus_network_internal:
   name: "{{ cumulus_network_internal_name }}"
   project: "admin"
@@ -445,12 +408,9 @@ cumulus_network_internal:
   provider_physical_network: "physnet1"
   provider_segmentation_id: 218
   shared: true
-  external: false
-  # Subnet configuration.
+  external: true
   subnets:
     - "{{ cumulus_subnet_internal }}"
-
-# cumulus internal subnet.
 cumulus_subnet_internal:
   name: "{{ cumulus_network_internal_name }}"
   project: "admin"
@@ -462,13 +422,10 @@ cumulus_subnet_internal:
     - 131.111.8.42
     - 131.111.12.20
   host_routes:
-    - destination: "{{ cumulus_subnet_external.cidr }}"
-      nexthop: 10.218.0.2
     - destination: "{{ cumulus_subnet_storage.cidr }}"
       nexthop: 10.218.0.3
 
 cumulus_network_storage_name: "cumulus-storage"
-
 cumulus_network_storage:
   name: "{{ cumulus_network_storage_name }}"
   project: "admin"
@@ -479,7 +436,6 @@ cumulus_network_storage:
   external: false
   subnets:
     - "{{ cumulus_subnet_storage }}"
-
 cumulus_subnet_storage:
   name: "{{ cumulus_network_storage_name }}"
   project: "admin"
@@ -487,67 +443,14 @@ cumulus_subnet_storage:
   allocation_pool_start: "10.206.206.1"
   allocation_pool_end: "10.206.206.254"
 
-# cumulus inspection network name.
-cumulus_network_inspection_name: "inspection-net"
-
-# cumulus inspection network.
-cumulus_network_inspection:
-  name: "{{ cumulus_network_inspection_name }}"
-  project: "admin"
-  provider_network_type: "vlan"
-  provider_physical_network: "physnet1"
-  provider_segmentation_id: 71
-  shared: false
-  # Subnet configuration.
-  subnets:
-    - "{{ cumulus_subnet_inspection }}"
-
-# cumulus inspection subnet.
-cumulus_subnet_inspection:
-  name: "{{ cumulus_network_inspection_name }}"
-  project: "admin"
-  cidr: "10.71.0.0/16"
-  enable_dhcp: false
-  allocation_pool_start: "10.71.0.1"
-  allocation_pool_end: "10.71.0.1"
-
-# cumulus demo VLAN network name.
-cumulus_network_demo_vlan_name: "demo-vlan"
-
-# cumulus demo VLAN network.
-cumulus_network_demo_vlan:
-  name: "{{ cumulus_network_demo_vlan_name }}"
-  project: "{{ cumulus_demo_project.name }}"
-  provider_network_type: "vlan"
-  provider_physical_network: "physnet1"
-  shared: false
-  # Subnet configuration.
-  subnets:
-    - "{{ cumulus_subnet_demo_vlan }}"
-
-# cumulus demo VLAN subnet.
-cumulus_subnet_demo_vlan:
-  name: "{{ cumulus_network_demo_vlan_name }}"
-  project: "{{ cumulus_demo_project.name }}"
-  cidr: "10.0.0.0/24"
-  gateway_ip: "10.0.0.1"
-  allocation_pool_start: "10.0.0.2"
-  allocation_pool_end: "10.0.0.254"
-
-# cumulus demo VXLAN network name.
 cumulus_network_demo_vxlan_name: "demo-vxlan"
-
-# cumulus demo VXLAN network.
 cumulus_network_demo_vxlan:
   name: "{{ cumulus_network_demo_vxlan_name }}"
   project: "{{ cumulus_demo_project.name }}"
   provider_network_type: "vxlan"
   shared: false
-  # Subnet configuration.
   subnets:
     - "{{ cumulus_subnet_demo_vxlan }}"
-
-# cumulus demo VXLAN subnet.
 cumulus_subnet_demo_vxlan:
   name: "{{ cumulus_network_demo_vxlan_name }}"
   project: "{{ cumulus_demo_project.name }}"
@@ -558,160 +461,71 @@ cumulus_subnet_demo_vxlan:
   dns_nameservers:
     - 8.8.8.8
 
-# cumulus demo provider VLAN network name.
-cumulus_network_demo_provider_name: "demo-provider"
-
-# cumulus demo provider VLAN
-cumulus_network_demo_provider:
-  name: "{{ cumulus_network_demo_provider_name }}"
-  project: "{{ cumulus_demo_project.name }}"
+cumulus_network_api_name: "cumulus-api"
+cumulus_network_api:
+  name: "{{ cumulus_network_api_name }}"
+  project: "admin"
   provider_network_type: "vlan"
   provider_physical_network: "physnet1"
-  provider_segmentation_id: 100
+  provider_segmentation_id: 205
   shared: false
-  # Subnet configuration.
   subnets:
-    - "{{ cumulus_subnet_demo_provider }}"
-
-# cumulus demo provider VLAN subnet
-cumulus_subnet_demo_provider:
-  name: "{{ cumulus_network_demo_provider_name }}"
-  project: "{{ cumulus_demo_project.name }}"
-  cidr: "10.100.0.0/16"
-  gateway_ip: "10.100.0.1"
-  allocation_pool_start: "10.100.1.0"
-  allocation_pool_end: "10.100.99.255"
-  host_routes:
-    - destination: "10.66.0.0/16"
-      nexthop: "10.100.0.2"
-
-# cumulus demo high speed VLAN network name.
-cumulus_network_demo_hs_vlan_name: "demo-hs-vlan"
-
-# cumulus demo high speed VLAN network.
-cumulus_network_demo_hs_vlan:
-  name: "{{ cumulus_network_demo_hs_vlan_name }}"
-  project: "{{ cumulus_demo_project.name }}"
-  provider_network_type: "vlan"
-  provider_physical_network: "physnet2"
-  shared: false
-  # Subnet configuration.
-  subnets:
-    - "{{ cumulus_subnet_demo_hs_vlan }}"
-
-# cumulus demo high speed VLAN subnet.
-cumulus_subnet_demo_hs_vlan:
-  name: "{{ cumulus_network_demo_hs_vlan_name }}"
-  project: "{{ cumulus_demo_project.name }}"
-  cidr: "10.2.0.0/24"
-  gateway_ip: "10.2.0.1"
-  allocation_pool_start: "10.2.0.2"
-  allocation_pool_end: "10.2.0.254"
-
-# cumulus demo InfiniBand network name.
-cumulus_network_infiniband_name: "infiniband"
-
-# cumulus demo InfiniBand network.
-cumulus_network_infiniband:
-  name: "{{ cumulus_network_infiniband_name }}"
+    - "{{ cumulus_subnet_api }}"
+cumulus_subnet_api:
+  name: "{{ cumulus_network_api_name }}"
   project: "admin"
-  provider_network_type: "flat"
-  provider_physical_network: "physnet3"
-  shared: true
-  # Subnet configuration.
-  subnets:
-    - "{{ cumulus_subnet_infiniband }}"
-
-# cumulus demo InfiniBand subnet.
-cumulus_subnet_infiniband:
-  name: "{{ cumulus_network_infiniband_name }}"
-  project: "admin"
-  cidr: "10.3.0.0/16"
+  cidr: "10.205.0.0/16"
   enable_dhcp: false
-  allocation_pool_start: "10.3.0.1"
-  allocation_pool_end: "10.3.0.254"
+  allocation_pool_start: "10.205.0.2"
+  allocation_pool_end: "10.205.0.4"
+  dns_nameservers:
+    - 131.111.8.42
+    - 131.111.12.20
 
-# List of routers in the cumulus demo project. Format is as required by the
-# stackhpc.os-networks role.
+cumulus_network_inspection_name: "inspection-net"
+cumulus_network_inspection:
+  name: "{{ cumulus_network_inspection_name }}"
+  project: "admin"
+  provider_network_type: "vlan"
+  provider_physical_network: "physnet1"
+  provider_segmentation_id: 210
+  shared: false
+  subnets:
+    - "{{ cumulus_subnet_inspection }}"
+cumulus_subnet_inspection:
+  name: "{{ cumulus_network_inspection_name }}"
+  project: "admin"
+  cidr: "10.210.0.0/16"
+  enable_dhcp: false
+  allocation_pool_start: "10.210.0.1"
+  allocation_pool_end: "10.210.0.1"
+
+## List of routers
 cumulus_routers:
   - "{{ cumulus_router_internet }}"
   - "{{ cumulus_router_demo }}"
-  - "{{ cumulus_router_internal_to_ilab }}"
   - "{{ cumulus_router_internal_to_storage }}"
+  - "{{ cumulus_router_provision }}"
+  - "{{ cumulus_router_cleaning }}"
+  - "{{ cumulus_router_inspection }}"
 
 cumulus_router_internet:
-  - name: "internal-to-internet"
+  - name: "internet"
     project: "admin"
     interfaces:
-      - "{{ cumulus_network_internal_name }}"
-      # This is the gateway for the cumulus_network_ilab_name
-      - net: "{{ cumulus_network_ilab_name }}"
-        subnet: "{{ cumulus_network_ilab_name }}"
-        portip: 10.215.0.2
       - net: "{{ cumulus_network_internal_name }}"
         subnet: "{{ cumulus_network_internal_name }}"
         portip: 10.218.0.1
     network: "{{ cumulus_network_internet_name }}"
 
-# cumulus bare metal provisioning router.
-cumulus_router_provision:
-  - name: "provision"
-    project: "admin"
-    interfaces:
-      - net: "{{ cumulus_network_internal_name }}"
-        subnet: "{{ cumulus_network_internal_name }}"
-        portip: "10.65.0.2"
-      - net: "provision-net"
-        subnet: "provision-net"
-        portip: "10.69.0.1"
-
-# cumulus bare metal cleaning router.
-cumulus_router_cleaning:
-  - name: "cleaning"
-    project: "admin"
-    interfaces:
-      - net: "{{ cumulus_network_internal_name }}"
-        subnet: "{{ cumulus_network_internal_name }}"
-        portip: "10.65.0.3"
-      - net: "cleaning-net"
-        subnet: "cleaning-net"
-        portip: "10.70.0.1"
-
-# cumulus bare metal inspection router.
-cumulus_router_inspection:
-  - name: "inspection"
-    project: "admin"
-    interfaces:
-      - net: "{{ cumulus_network_internal_name }}"
-        subnet: "{{ cumulus_network_internal_name }}"
-        portip: "10.65.0.4"
-      - net: "inspection-net"
-        subnet: "inspection-net"
-        portip: "10.71.0.1"
-
-# cumulus demo router.
 cumulus_router_demo:
   - name: "{{ cumulus_demo_project.name }}"
     project: "{{ cumulus_demo_project.name }}"
     interfaces:
-      #- "{{ cumulus_network_demo_vlan_name }}"
       - "{{ cumulus_network_demo_vxlan_name }}"
-      #- "{{ cumulus_network_demo_hs_vlan_name }}"
-      #- "{{ cumulus_network_demo_provider_name }}"
-    network: "{{ cumulus_network_ilab_name }}"
-
-# Connects the internal network to ilab
-cumulus_router_internal_to_ilab:
-  - name: internal-to-ilab
-    project: admin
-    interfaces:
-      - net: "{{ cumulus_network_internal_name }}"
-        subnet: "{{ cumulus_network_internal_name }}"
-        portip: "10.218.0.2"
-    network: "{{ cumulus_network_ilab_name }}"
 
 cumulus_router_internal_to_storage:
-  - name: internal-to-storage
+  - name: storage
     project: admin
     interfaces:
       - net: "{{ cumulus_network_internal_name }}"
@@ -720,6 +534,39 @@ cumulus_router_internal_to_storage:
       - net: "{{ cumulus_network_storage_name }}"
         subnet: "{{ cumulus_network_storage_name }}"
         portip: "10.206.0.1"
+
+cumulus_router_provision:
+  - name: "provision-router"
+    project: "admin"
+    interfaces:
+      - net: "{{ cumulus_network_api_name }}"
+        subnet: "{{ cumulus_network_api_name }}"
+        portip: "10.205.0.2"
+      - net: "provision-net"
+        subnet: "provision-net"
+        portip: "10.211.0.1"
+
+cumulus_router_cleaning:
+  - name: "cleaning-router"
+    project: "admin"
+    interfaces:
+      - net: "{{ cumulus_network_api_name }}"
+        subnet: "{{ cumulus_network_api_name }}"
+        portip: "10.205.0.3"
+      - net: "cleaning-net"
+        subnet: "cleaning-net"
+        portip: "10.213.0.1"
+
+cumulus_router_inspection:
+  - name: "inspection-router"
+    project: "admin"
+    interfaces:
+      - net: "{{ cumulus_network_api_name }}"
+        subnet: "{{ cumulus_network_api_name }}"
+        portip: "10.205.0.4"
+      - net: "inspection-net"
+        subnet: "inspection-net"
+        portip: "10.210.0.1"
 
 # List of security groups in the cumulus demo project. Format is as required by the
 # stackhpc.os-networks role.
@@ -769,6 +616,7 @@ cumulus_flavors:
   - "{{ cumulus_flavor_general_small }}"
   - "{{ cumulus_flavor_general_tiny }}"
   - "{{ cumulus_flavor_lsst_medium }}"
+  - "{{ cumulus_flavor_bm_dirac25y }}"
 
 cumulus_flavor_general_xlarge:
   name: "general.v1.xlarge"
@@ -826,13 +674,14 @@ cumulus_flavor_lsst_medium:
   is_public: false
 
 # Bare metal compute node.
-cumulus_flavor_baremetal_general:
-  name: "bm.general"
+cumulus_flavor_bm_dirac25y:
+  name: "bm.v1.skylake.dirac25y"
   ram: 196608
-  disk: 480
-  vcpus: 64
+  disk: 100
+  vcpus: 32
+  is_public: false
   extra_specs:
-    "resources:CUSTOM_BAREMETAL_A": 1
+    "resources:CUSTOM_BM_V1_SKYLAKE_DIRAC25Y": 1
     "resources:VCPU": 0
     "resources:MEMORY_MB": 0
     "resources:DISK_GB": 0
