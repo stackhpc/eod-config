@@ -14,7 +14,7 @@ cumulus_projects:
   - "{{ cumulus_iris_vcycle }}"
   - "{{ cumulus_iris_casu }}"
   - "{{ cumulus_iris_ccfe }}"
-  - "{{ cumulus_pfb29_dev_project }}"
+  - "{{ cumulus_rcp_dev_project }}"
   - "{{ cumulus_demo_project }}"
   - "{{ cumulus_services_project }}"
   - "{{ cumulus_tempest_project }}"
@@ -205,7 +205,7 @@ cumulus_demo_project:
   users: "{{ cumulus_resops_users }}"
   quotas: "{{ cumulus_unlimited_quotas }}"
 
-cumulus_pfb29_dev_users:
+cumulus_rcp_dev_users:
    - name: "jgarbutt"
      email: "johng@stackhpc.com"
      password: "{{ federated_user_default_password }}"
@@ -214,13 +214,29 @@ cumulus_pfb29_dev_users:
      email: "pfb29@cam.ac.uk"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
+   - name: "mjr208@cam.ac.uk"
+     email: "mjr208@cam.ac.uk"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+#   - name: "mcs94@cam.ac.uk"
+#     email: "mcs94@cam.ac.uk"
+#     password: "{{ federated_user_default_password }}"
+#     roles: "{{ cumulus_user_roles }}"
+   - name: "wjt27@cam.ac.uk"
+     email: "wjt27@cam.ac.uk"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
+   - name: "sjr20@cam.ac.uk"
+     email: "sjr20@cam.ac.uk"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
 
-cumulus_pfb29_dev_project:
-  name: pfb29-dev
-  description: pfb29-dev project
+cumulus_rcp_dev_project:
+  name: rcp-dev
+  description: rcp-dev project
   project_domain: Default
   user_domain: "{{ federated_domain }}"
-  users: "{{ cumulus_pfb29_dev_users }}"
+  users: "{{ cumulus_rcp_dev_users }}"
   quotas: "{{ cumulus_unlimited_quotas }}"
 
 # Definition of the cumulus service project. Format is as required by the
