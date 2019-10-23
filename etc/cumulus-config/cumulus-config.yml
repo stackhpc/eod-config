@@ -132,6 +132,10 @@ cumulus_iris_gaia_users:
      email: "pfb29@cam.ac.uk"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
+   - name: "steliosvoutsinas@gmail.com"
+     email: "steliosvoutsinas@gmail.com"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
 
 cumulus_iris_vcycle:
   name: iris-vcycle
