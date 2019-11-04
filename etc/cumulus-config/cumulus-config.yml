@@ -48,6 +48,15 @@ iris_tiny_quota:
   ports: 50
   volumes: 20
 
+iris_bm_quota:
+  instances: 10
+  cores: 68
+  ram: 405504 # 936GB
+  floating_ips: 3
+  routers: 1
+  ports: 50
+  volumes: 20
+
 cumulus_iris_dirac:
   name: iris-DIRAC
   description: IRIS@Cambridge DIRAC
@@ -183,7 +192,7 @@ cumulus_iris_ccfe:
   project_domain: Default
   users: "{{ cumulus_iris_ccfe_users }}"
   user_domain: "{{ federated_domain }}"
-  quotas: "{{ iris_tiny_quota }}"
+  quotas: "{{ iris_bm_quota }}"
 
 cumulus_iris_ccfe_users:
    - name: "jgarbutt"
