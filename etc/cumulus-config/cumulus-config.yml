@@ -44,7 +44,7 @@ iris_tiny_quota:
   cores: 10
   ram: 98304 # 96GB
   floating_ips: 3
-  routers: 1
+  routers: 2
   ports: 50
   volumes: 20
 
@@ -552,21 +552,20 @@ cumulus_subnet_inspection:
 
 ## List of routers
 cumulus_routers:
-  - "{{ cumulus_router_internet }}"
   - "{{ cumulus_router_demo }}"
+  - "{{ cumulus_router_internal_to_internet }}"
   - "{{ cumulus_router_internal_to_storage }}"
   - "{{ cumulus_router_provision }}"
   - "{{ cumulus_router_cleaning }}"
   - "{{ cumulus_router_inspection }}"
 
-cumulus_router_internet:
+cumulus_router_internal_to_internet:
   - name: "internet"
     project: "admin"
     interfaces:
       - net: "{{ cumulus_network_internal_name }}"
         subnet: "{{ cumulus_network_internal_name }}"
         portip: 10.218.0.1
-    network: "{{ cumulus_network_internet_name }}"
 
 cumulus_router_demo:
   - name: "{{ cumulus_demo_project.name }}"
