@@ -44,7 +44,7 @@ iris_tiny_quota:
   cores: 10
   ram: 98304 # 96GB
   floating_ips: 3
-  routers: 1
+  routers: 2
   ports: 50
   volumes: 20
 
