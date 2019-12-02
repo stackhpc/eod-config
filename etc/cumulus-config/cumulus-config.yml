@@ -10,7 +10,9 @@
 cumulus_projects:
   - "{{ cumulus_iris_dirac }}"
   - "{{ cumulus_iris_euclid }}"
-  - "{{ cumulus_iris_gaia }}"
+  - "{{ cumulus_iris_gaia_dev }}"
+  - "{{ cumulus_iris_gaia_test }}"
+  - "{{ cumulus_iris_gaia_prod }}"
   - "{{ cumulus_iris_vcycle }}"
   - "{{ cumulus_iris_casu }}"
   - "{{ cumulus_iris_ccfe }}"
@@ -116,35 +118,75 @@ cumulus_iris_euclid_users:
     password: "{{ federated_user_default_password }}"
     roles: "{{ cumulus_user_roles }}"
 
-cumulus_iris_gaia:
-  name: iris-gaia
-  description: IRIS@Cambridge Gaia
+cumulus_iris_gaia_dev:
+  name: iris-gaia-dev
+  description: IRIS@Cambridge Gaia-Dev
   project_domain: Default
   users: "{{ cumulus_iris_gaia_users }}"
   user_domain: "{{ federated_domain }}"
-  quotas: "{{ iris_small_quota }}"
+  quotas:
+    instances: 20
+    cores: 200
+    ram: 512000 # 500GB
+    floating_ips: 3
+    routers: 3
+    ports: 500
+    volumes: 20
+    gigabytes: 5120
+
+cumulus_iris_gaia_test:
+  name: iris-gaia-test
+  description: IRIS@Cambridge Gaia-Test
+  project_domain: Default
+  users: "{{ cumulus_iris_gaia_users }}"
+  user_domain: "{{ federated_domain }}"
+  quotas:
+    instances: 20
+    cores: 200
+    ram: 512000 # 500GB
+    floating_ips: 3
+    routers: 3
+    ports: 500
+    volumes: 20
+    gigabytes: 512
+
+cumulus_iris_gaia_prod:
+  name: iris-gaia-prod
+  description: IRIS@Cambridge Gaia-Prod
+  project_domain: Default
+  users: "{{ cumulus_iris_gaia_users }}"
+  user_domain: "{{ federated_domain }}"
+  quotas:
+    instances: 20
+    cores: 200
+    ram: 512000 # 500GB
+    floating_ips: 3
+    routers: 3
+    ports: 500
+    volumes: 20
+    gigabytes: 512
 
 cumulus_iris_gaia_users:
    - name: "pfb29@cam.ac.uk"
      email: "pfb29@cam.ac.uk"
      password: "{{ federated_user_default_password }}"
-     roles: "{{ cumulus_user_roles }}"
+     roles: "{{ cumulus_gaia_roles }}"
    - name: "nigelhambly@googlemail.com"
      email: "nigelhambly@googlemail.com"
      password: "{{ federated_user_default_password }}"
-     roles: "{{ cumulus_user_roles }}"
+     roles: "{{ cumulus_gaia_roles }}"
    - name: "yrvafhom@gmail.com"
      email: "yrvafhom@gmail.com"
      password: "{{ federated_user_default_password }}"
-     roles: "{{ cumulus_user_roles }}"
+     roles: "{{ cumulus_gaia_roles }}"
    - name: "pfb29@cam.ac.uk"
      email: "pfb29@cam.ac.uk"
      password: "{{ federated_user_default_password }}"
-     roles: "{{ cumulus_user_roles }}"
+     roles: "{{ cumulus_gaia_roles }}"
    - name: "steliosvoutsinas@gmail.com"
      email: "steliosvoutsinas@gmail.com"
      password: "{{ federated_user_default_password }}"
-     roles: "{{ cumulus_user_roles }}"
+     roles: "{{ cumulus_gaia_roles }}"
 
 cumulus_iris_vcycle:
   name: iris-vcycle
@@ -404,6 +446,11 @@ cumulus_admin_roles:
 cumulus_user_roles:
   - member
   - heat_stack_owner
+
+cumulus_gaia_roles:
+  - member
+  - heat_stack_owner
+  - ceph
 
 # Dict of quotas to set for projects with unlimited resource quotas
 cumulus_unlimited_quotas:
