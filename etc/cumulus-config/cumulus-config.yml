@@ -285,6 +285,10 @@ cumulus_rcp_dev_users:
      email: "sjr20@cam.ac.uk"
      password: "{{ federated_user_default_password }}"
      roles: "{{ cumulus_user_roles }}"
+   - name: "js947@cam.ac.uk"
+     email: "js947@cam.ac.uk"
+     password: "{{ federated_user_default_password }}"
+     roles: "{{ cumulus_user_roles }}"
 
 cumulus_rcp_dev_project:
   name: rcp-dev
