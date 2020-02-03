@@ -848,7 +848,9 @@ cumulus_flavor_bm_dirac25y:
 
 cumulus_images:
   - "{{ cumulus_centos_7 }}"
+  - "{{ cumulus_centos_8 }}"
   - "{{ cumulus_fedora_atomic_29 }}"
+  - "{{ cumulus_fedora_coreos_31 }}"
   - "{{ cumulus_cirros }}"
   - "{{ cumulus_debian_9 }}"
   - "{{ cumulus_fedora_30 }}"
@@ -856,12 +858,20 @@ cumulus_images:
   - "{{ cumulus_openSUSE_leap_15 }}"
 
 cumulus_fedora_atomic_29:
-  name: "FedoraAtomic29-20191028"
-  image_url: "https://dl.fedoraproject.org/pub/alt/atomic/stable/Fedora-29-updates-20191028.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20191028.0.x86_64.qcow2"
+  name: "FedoraAtomic29-20191126"
+  image_url: "https://dl.fedoraproject.org/pub/alt/atomic/stable/Fedora-29-updates-20191126.0/AtomicHost/x86_64/images/Fedora-AtomicHost-29-20191126.0.x86_64.qcow2"
   properties:
     os_type: "linux"
     os_distro: "fedora-atomic"
     os_version: "29"
+
+cumulus_fedora_coreos_31:
+  name: "FedoraCoreOS31-20200118"
+  image_url: "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/31.20200118.3.0/x86_64/fedora-coreos-31.20200118.3.0-openstack.x86_64.qcow2.xz"
+  properties:
+    os_type: "linux"
+    os_distro: "fedora-coreos"
+    os_version: "31"
 
 cumulus_centos_7:
   name: "CentOS7-1907"
@@ -870,6 +880,18 @@ cumulus_centos_7:
     os_type: "linux"
     os_distro: "centos"
     os_version: "7.0"
+    hw_scsi_model: "virtio-scsi"
+    hw_disk_bus: "scsi"
+    hw_vif_model: "virtio"
+    hw_vif_multiqueue_enabled: "true"
+
+cumulus_centos_8:
+  name: "CentOS8-1911"
+  image_url: "https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2"
+  properties:
+    os_type: "linux"
+    os_distro: "centos"
+    os_version: "8.0"
     hw_scsi_model: "virtio-scsi"
     hw_disk_bus: "scsi"
     hw_vif_model: "virtio"
