@@ -1015,7 +1015,8 @@ cumulus_systemd_modules_load_ipoib: |
 cumulus_container_clusters_templates:
 #  - "{{ cumulus_container_clusters_template_swarm_fedora_atomic_27 }}"
   - "{{ cumulus_container_clusters_template_k8s_146 }}"
-  - "{{ cumulus_container_clusters_template_k8s_156 }}"
+  - "{{ cumulus_container_clusters_template_k8s_170 }}"
+  - "{{ cumulus_container_clusters_template_k8s_162 }}"
 
 cumulus_container_clusters_template_swarm_fedora_atomic_27:
   public:
@@ -1033,7 +1034,7 @@ cumulus_container_clusters_template_swarm_fedora_atomic_27:
 cumulus_container_clusters_template_k8s_146:
   public:
   floating-ip-disabled:
-  labels: "cgroup_driver=cgroupfs,ingress_controller=nginx,monitoring_enabled=true,tiller_enabled=true,heat_container_agent_tag=train-stable-1,kube_tag=v1.14.6,cloud_provider_tag=v1.14.0,min_node_count=1,max_node_count=5,master_lb_floating_ip_enabled=true,auto_scaling_enabled=true,tiller_tag=v2.14.3,autoscaler_tag=v1.0,volume_driver=cinder"
+  labels: "cgroup_driver=cgroupfs,ingress_controller=octavia,monitoring_enabled=true,tiller_enabled=true,heat_container_agent_tag=train-stable-1,kube_tag=v1.14.6,cloud_provider_tag=v1.14.0,min_node_count=1,max_node_count=5,master_lb_floating_ip_enabled=true,auto_scaling_enabled=true,tiller_tag=v2.14.3,autoscaler_tag=v1.0,volume_driver=cinder"
   master_lb_enabled:
   external_network: "{{ cumulus_network_internet_name }}"
   master_flavor: "{{ cumulus_flavor_general_tiny.name }}"
@@ -1045,17 +1046,34 @@ cumulus_container_clusters_template_k8s_146:
   docker_storage_driver: "overlay2"
   server_type: "vm"
 
-cumulus_container_clusters_template_k8s_156:
+cumulus_container_clusters_template_k8s_170:
   public:
   floating-ip-disabled:
-  labels: "cgroup_driver=cgroupfs,ingress_controller=nginx,monitoring_enabled=true,tiller_enabled=true,heat_container_agent_tag=train-stable-1,kube_tag=v1.15.6,cloud_provider_tag=v1.15.0,min_node_count=1,max_node_count=5,master_lb_floating_ip_enabled=true,auto_scaling_enabled=true,tiller_tag=v2.14.3,autoscaler_tag=v1.0,use_podman=true,volume_driver=cinder"
   master_lb_enabled:
+  labels: "auto_healing_controller=magnum-auto-healer,tiller_tag=v2.16.1,max_node_count=4,min_node_count=1,cloud_provider_tag=v1.17.0,etcd_tag=3.3.17,monitoring_enabled=true,heat_container_agent_tag=train-stable-1,tiller_enabled=true,auto_scaling_enabled=true,master_lb_floating_ip_enabled=true,use_podman=true,auto_healing_enabled=true,kube_tag=v1.17.0,autoscaler_tag=v1.15.2"
   external_network: "{{ cumulus_network_internet_name }}"
   master_flavor: "{{ cumulus_flavor_general_tiny.name }}"
   flavor: "{{ cumulus_flavor_general_small.name }}"
   image: "FedoraAtomic29-20191126"
-  name: "kubernetes-1.15.6-test-20200203"
+  name: "kubernetes-1.17.0-test-20200204"
   coe: "kubernetes"
   network_driver: "flannel"
   docker_storage_driver: "overlay2"
   server_type: "vm"
+  volume_driver: "cinder"
+
+cumulus_container_clusters_template_k8s_162:
+  public:
+  floating-ip-disabled:
+  master_lb_enabled:
+  labels: "auto_healing_controller=magnum-auto-healer,tiller_tag=v2.16.1,max_node_count=4,min_node_count=1,cloud_provider_tag=v1.16.0,etcd_tag=3.3.17,monitoring_enabled=true,heat_container_agent_tag=train-stable-1,tiller_enabled=true,auto_scaling_enabled=true,master_lb_floating_ip_enabled=true,use_podman=true,auto_healing_enabled=true,kube_tag=v1.16.2,autoscaler_tag=v1.15.2"
+  external_network: "{{ cumulus_network_internet_name }}"
+  master_flavor: "{{ cumulus_flavor_general_tiny.name }}"
+  flavor: "{{ cumulus_flavor_general_small.name }}"
+  image: "FedoraAtomic29-20191126"
+  name: "kubernetes-1.16.2-test-20200204"
+  coe: "kubernetes"
+  network_driver: "flannel"
+  docker_storage_driver: "overlay2"
+  server_type: "vm"
+  volume_driver: "cinder"
