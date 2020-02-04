@@ -1014,7 +1014,7 @@ cumulus_systemd_modules_load_ipoib: |
 
 cumulus_container_clusters_templates:
 #  - "{{ cumulus_container_clusters_template_swarm_fedora_atomic_27 }}"
-  - "{{ cumulus_container_clusters_template_k8s_146 }}"
+#  - "{{ cumulus_container_clusters_template_k8s_146 }}"
   - "{{ cumulus_container_clusters_template_k8s_172 }}"
   - "{{ cumulus_container_clusters_template_k8s_166 }}"
 
